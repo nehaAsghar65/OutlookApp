@@ -26,8 +26,8 @@ const TabNavigation = () => {
                 left: 0,
                 right: 0,
                 elevation: 0,
-                backgroundColor: COLORS.white,
-                borderTopColor: "transparent",
+                backgroundColor: 'black',
+                // borderTopColor: "transparent",
                 height: 100
 
             }
