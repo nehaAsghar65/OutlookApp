@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "73812347454",
+    "project_id": "pushnotifications-d2387",
+    "storage_bucket": "pushnotifications-d2387.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73812347454:android:c5e0ed8cf09cb3f82fdf6f",
+        "android_client_info": {
+          "package_name": "com.outlookclone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73812347454-qhb5qfk3ecadbi1uq2bre6qsmsg7397s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF3zGjFN-1tZPxqpZWwVWnmDU_qiIg13w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73812347454-qhb5qfk3ecadbi1uq2bre6qsmsg7397s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

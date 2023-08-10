@@ -27,9 +27,9 @@ const MyComponent = () => {
       }, [navigation])
 
     return (
-        <View style={{ flex: 1, paddingHorizontal: 20, paddingVertical: SIZES.padding, backgroundColor: 'black' }}>
+        <View style={{ flex: 1, paddingHorizontal: 20, paddingVertical: SIZES.padding, backgroundColor: COLORS.light }}>
             
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row'  }}>
             <Text style={styles.fieldTitle}>To</Text>
                 <TextInput
                     style={styles.input}
@@ -73,18 +73,18 @@ const styles = {
         marginBottom: 20,
         borderRadius: 5,
         fontSize: 16,
-        backgroundColor: 'black',
+        backgroundColor: COLORS.light,
     },
     textArea: {
         color: 'white',
         borderWidth: 1,
         width:"80%",
         marginRight:"50%",
-        // padding: 10,
+        padding: 10,
         marginBottom: 20,
         borderRadius: 5,
         fontSize: 16,
-        backgroundColor: 'black',
+        backgroundColor: COLORS.light,
         height: 150,
         textAlignVertical: 'top',
     },
@@ -94,12 +94,12 @@ const styles = {
         marginBottom: 5,
     },
     fieldTitle: {
-        color: 'white',
+        color: COLORS.gray,
         padding: 15,
         marginBottom: 10,
         borderRadius: 5,
         fontSize: 16,
-        backgroundColor: 'black',
+        backgroundColor: COLORS.light,
     }
 };
 

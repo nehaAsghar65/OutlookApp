@@ -1,21 +1,40 @@
 import 'react-native-gesture-handler';
-import React, { useState } from "react";
-import { Image, View, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { Image, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Home, LandingScreen, NewMail, MailBody, Login, Signup, Welcome, Mail, Calender, Apps, Feed } from './screens'
+import { Home, LandingScreen, NewMail, MailBody, Login, Signup, Welcome, Mail, Calender, Apps, Feed, Search } from './screens'
 import CustomDrawer from "./navigation/CustomDrawer";
 import TabNavigation from './navigation/TabNavigation';
 import { IconButton, PickerList } from './components';
 import { icons, COLORS, FONTS, SIZES } from './constants';
+import messaging from '@react-native-firebase/messaging'
 // import dummyData from './constants';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const App = () => {
     const [showPicker, setShowPicker] = useState(false);
-    const [filterStatus,setFilterStatus]=useState("")
+    const [filterStatus, setFilterStatus] = useState("")
+    useEffect(() => {
+        async function pushNotifications() {
+            const fcmToken = await messaging().getToken()
+            if (fcmToken) {
+                console.log(fcmToken)
+            }
+            const unsubscribe = messaging().onMessage(async remoteMessage => {
+                Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+              });
+            messaging().setBackgroundMessageHandler(async remoteMessage => {
+
+                console.log('Message handled in the background!', remoteMessage);
+            })
+            return unsubscribe;
+        }
+        pushNotifications();
+
+    }, [])
 
     return (
         <NavigationContainer >
@@ -57,7 +76,7 @@ const App = () => {
                         headerShown: true,
                         title: "New Mail",
                         headerTintColor: "white",
-                        headerStyle: { backgroundColor: "black" }
+                        headerStyle: { backgroundColor: COLORS.primary }
 
                     }}
 
@@ -69,7 +88,7 @@ const App = () => {
                         headerShown: true,
                         title: "",
                         headerTintColor: "white",
-                        headerStyle: { backgroundColor: "black" },
+                        headerStyle: { backgroundColor:COLORS.primary },
                         headerRight: () => (
 
                             <View style={{ flexDirection: 'row' }}>
@@ -105,7 +124,7 @@ const App = () => {
                                     onPress={() => setShowPicker(!showPicker)}
                                 >
                                     {/* {showPicker && <PickerList />} */}
-                                    {showPicker&& <PickerList showList={showPicker} setShowList={setShowPicker}  filterStatus={filterStatus} setFilterStatus={setFilterStatus}/>}
+                                    {showPicker && <PickerList showList={showPicker} setShowList={setShowPicker} filterStatus={filterStatus} setFilterStatus={setFilterStatus} />}
 
                                     <Image
                                         source={icons.dots}
@@ -124,6 +143,13 @@ const App = () => {
                         ),
 
                     }}
+                />
+                <Stack.Screen
+                    name="Search"
+                    component={Search}
+
+
+
                 />
                 <Stack.Screen
                     name="LandingScreen"

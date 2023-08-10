@@ -11,4 +11,5 @@ import Mail from "./TabNavScreens/Mail"
 import Apps from "./TabNavScreens/Apps"
 import NewMail from './NewMail'
 import MailBody from "./MailBody";
-export {Welcome,NewMail,MailBody,Inbox,Home,MainLayout,LandingScreen,Login,Signup,Apps, Mail,Feed,Calender}
+import Search from "./Search";
+export {Search,Welcome,NewMail,MailBody,Inbox,Home,MainLayout,LandingScreen,Login,Signup,Apps, Mail,Feed,Calender}

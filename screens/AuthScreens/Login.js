@@ -13,7 +13,7 @@ const Login = () => {
   return (
     <View style={{flex:1,
     paddingHorizontal:SIZES.padding,
-    backgroundColor:'black'}}>
+    backgroundColor:COLORS.light}}>
         <Image
         source={images.logo}
         style={{ alignSelf:'center',

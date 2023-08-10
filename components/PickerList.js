@@ -54,12 +54,12 @@ const PickerList = ({ showList, setShowList,filterStatus,setFilterStatus }) => {
                                 style={{
                                     width: 25,
                                     height: 25,
-                                    tintColor: "white",
+                                    tintColor: COLORS.gray,
                                     marginRight: 10
                                 }}
                                 source={item.icon} />
 
-                            <Text style={{ color: "white", ...FONTS.body4 }}>{item.title}</Text>
+                            <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>{item.title}</Text>
                         </TouchableOpacity>
                     )
                 }}
@@ -70,10 +70,10 @@ const PickerList = ({ showList, setShowList,filterStatus,setFilterStatus }) => {
 const styles = StyleSheet.create({
     container: {
         width: 170,
-        height: "140%",
+        height: "125%",
         borderRadius: SIZES.radius,
         marginTop: "30%",
-        backgroundColor: COLORS.gray,
+        backgroundColor: COLORS.light,
         alignSelf: "center"
     },
     item: {
@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
         height: 20,
         paddingHorizontal: 15,
         marginTop: 15
-    }
+    },
+    
 });
 
 

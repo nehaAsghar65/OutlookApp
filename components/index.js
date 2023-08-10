@@ -5,4 +5,5 @@ import IconButton from "./IconButton";
 import TabIcon from "./TabIcon";
 import MailCard from "./MailCard";
 import PickerList from "./PickerList";
-export {MailCard,TextButton,AuthContainer,FormInputs,IconButton,TabIcon,PickerList}
+import ReplyFooter from "./ReplyFooter";
+export {ReplyFooter,MailCard,TextButton,AuthContainer,FormInputs,IconButton,TabIcon,PickerList}

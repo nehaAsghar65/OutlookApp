@@ -18,7 +18,7 @@ const CountryDropDown = ({ containerStyle, selectedCountry, onPress }) => {
                 paddingHorizontal: SIZES.radius,
                 borderRadius: SIZES.radius,
                 alignItems: 'center',
-                backgroundColor: COLORS.lightGrey,
+                backgroundColor: COLORS.light,
                 ...containerStyle
             }}
             onPress={onPress}

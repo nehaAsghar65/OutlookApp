@@ -14,7 +14,7 @@ const Welcome = () => {
         <View
             style={{
                 flex: 1,
-                backgroundColor: "black"
+                backgroundColor:COLORS.light
             }}
         >
             {/* Logo & Title */}

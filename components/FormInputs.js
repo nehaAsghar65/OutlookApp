@@ -49,11 +49,14 @@ export default FormInputs
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        height: 55,
+        height: 50,
         paddingHorizontal: SIZES.radius,
-        borderRadius: SIZES.radius,
+        borderBottomColor: COLORS.grey,
+        borderBottomWidth: 0.5,
+        // borderRadius: SIZES.radius,
+        
         alignItems: 'center',
-        backgroundColor:COLORS.lightGrey,
+        backgroundColor:COLORS.light,
         // ...inputContainerStyle
 
     },

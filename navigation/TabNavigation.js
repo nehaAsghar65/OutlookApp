@@ -5,17 +5,20 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Apps, Calender, Feed, Home, Inbox, Mail } from '../screens';
 import { COLORS, FONTS, SIZES, icons } from '../constants';
 import { PickerList, TabIcon, TextButton } from '../components';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
+
     const [focused, setFocused] = useState(false)
     const [others, setOthers] = useState(false)
     const [selectedOption, setSelectedOption] = useState(false)
     const [showPicker, setShowPicker] = useState(false);
-    const [filterStatus,setFilterStatus]=useState("Filter")
+    const [filterStatus, setFilterStatus] = useState("Filter")
+    const navigation = useNavigation()
     return (
 
         <Tab.Navigator tabBarOptions={{
@@ -36,13 +39,15 @@ const TabNavigation = () => {
                 options={{
                     headerShown: true,
                     headerStyle: {
-                        height: 70,
-                        backgroundColor: "black"
+                        height: 90,
+                        backgroundColor: COLORS.primary,
+
                     },
-                   
+
                     headerTitle: () => (<View >
-                        <Text style={{ marginLeft: 7,fontSize: 21, fontWeight: "bold", color: "white" }}>Inbox</Text>
+                        <Text style={{ marginLeft: 7, fontSize: 21, fontWeight: "bold", color: COLORS.light }}>Inbox</Text>
                         <View style={{
+                            marginTop: 20,
                             flexDirection: "row",
                             justifyContent: 'space-between',
                         }}>
@@ -53,10 +58,9 @@ const TabNavigation = () => {
                                     height: 25,
                                     width: 60,
                                     borderRadius: SIZES.radius,
-                                    backgroundColor: focused ? COLORS.grey20: null,
+                                    backgroundColor: focused ? COLORS.grey20 : null,
                                 }}
                                 labelStyle={{
-                                    // color: COLORS.white,
                                     ...FONTS.h5
                                 }}
                                 onPress={() => {
@@ -84,46 +88,47 @@ const TabNavigation = () => {
                                     setFocused(false)
                                 }}
                             />
-                            
-                            
+
+
                         </View>
-                        
+
                     </View>),
                     headerRight: () => (
-                        <View style={{marginRight:20}}>
-                        <TouchableOpacity style={{ justifyContent:'flex-end',paddingHorizontal: 30 ,paddingBottom:8, flexDirection:'row'}}>
-                            <Image
-                                source={icons.search}
-                                style={{ height: 20, width: 20 }} />
-                        </TouchableOpacity>
-                        <TextButton
+                        <View style={{ marginRight: 20 }}>
+                            <TouchableOpacity style={{ justifyContent: 'flex-end', paddingHorizontal: 30, paddingBottom: 8, flexDirection: 'row' }}
+                                onPress={() => { navigation.navigate('Search') }}>
+                                <Image
+                                    source={icons.search}
+                                    style={{ height: 20, width: 20 }} />
+                            </TouchableOpacity>
+                            <TextButton
                                 label={filterStatus}
                                 contentContainerStyle={{
+                                    marginTop: 20,
                                     height: 25,
-                                    width:"auto",
+                                    width: "auto",
                                     borderRadius: SIZES.radius,
-                                    paddingHorizontal:10,
-                                    // marginLeft:"65%",
-                                    backgroundColor: COLORS.grey20 ,
+                                    paddingHorizontal: 10,
+                                    backgroundColor: COLORS.grey20,
 
                                 }}
                                 labelStyle={{
                                     ...FONTS.h5
                                 }}
-                                onPress={()=>setShowPicker(!showPicker)}
+                                onPress={() => setShowPicker(!showPicker)}
                             />
-                           {showPicker&& <PickerList showList={showPicker} setShowList={setShowPicker} filterStatus={filterStatus} setFilterStatus={setFilterStatus}/>}
-                        
+                            {showPicker && <PickerList showList={showPicker} setShowList={setShowPicker} filterStatus={filterStatus} setFilterStatus={setFilterStatus} />}
+
                         </View>
                     ),
 
                     tabBarIcon: ({ focused }) => <TabIcon focused={focused}
                         icon={icons.email} />
                 }} />
-                
+
             <Tab.Screen name='Calender' component={Calender} options={{
                 headerShown: false,
-                tabBarIcon: ({ focused }) => <TabIcon focused={focused}
+                tabBarIcon: ({ focused }) => <TabIcon  focused={focused}
                     icon={icons.calender} />
             }} />
             <Tab.Screen name='Feed' component={Feed} options={{

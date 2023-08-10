@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { COLORS } from '../constants';
+import { COLORS ,icons} from '../constants';
 
 const TabIcon = ({ focused, icon }) => {
-    const imageStyle = [styles.image, focused && { tintColor: COLORS.darkGreen }];
-
+    
+    const imageStyle = [styles.image, focused && { tintColor: COLORS.primary }];
+    if(icon==icons.email){
+        focused=true
+    }
     return (
         <View style={styles.container}>
             <Image source={icon} resizeMode="contain" style={imageStyle} />
@@ -42,6 +45,6 @@ const styles = StyleSheet.create({
         height: 5,
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
-        backgroundColor: COLORS.primary,
+        // backgroundColor: COLORS.primary,
     }
 });

@@ -41,7 +41,7 @@ const CheckBox = ({ containerStyle, isSelected, onPress }) => {
                 marginLeft:SIZES.base,
                 ...FONTS.body5,
                 lineHeight:20,
-                color:COLORS.lightGrey
+                color:COLORS.grey
 
             }}>
                 By registering, you agree to our term and you have read our Data Use Policy

@@ -10,7 +10,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^4.4.7",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-firebase/app": "^18.2.0",
+    "@react-native-firebase/messaging": "^18.2.0",
     "@react-native-picker/picker": "^2.4.10",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/drawer": "^6.6.3",
@@ -26,7 +29,8 @@
     "react-native-reanimated": "^3.3.0",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.4.0",
-    "react-native-shadow-2": "^7.0.8"
+    "react-native-shadow-2": "^7.0.8",
+    "rn-sliding-up-panel": "^2.4.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

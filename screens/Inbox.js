@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, TouchableOpacity,Image } from 'react-native' // Import TouchableOpacity for the button
-import { COLORS, SIZES, FONTS,icons } from '../constants'
+import { Text, View, SafeAreaView, StyleSheet, TouchableOpacity, Image } from 'react-native' // Import TouchableOpacity for the button
+import { COLORS, SIZES, FONTS, icons } from '../constants'
 import { MailCard, TextButton } from '../components'
 import { FlatList } from 'react-native-gesture-handler'
+import { Searchbar } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { dummyData } from '../constants'
-
+import colors from '../constants'
 import axios from 'axios'
 
-const Inbox = ({navigation}) => {
+const Inbox = ({ navigation }) => {
   const [data, setData] = useState([])
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +27,10 @@ const Inbox = ({navigation}) => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView 
+    
+    style={styles.container}>
+      
       <FlatList
         data={data}
         vertical
@@ -35,22 +39,22 @@ const Inbox = ({navigation}) => {
         renderItem={({ item }) => (
           <MailCard
             containerStyle={{
-              marginHorizontal: SIZES.padding
+              marginHorizontal:28
             }}
             mailItem={item}
-            onPress={() => { navigation.navigate('MailBody',{item:item}) }}
+            onPress={() => { navigation.navigate('MailBody', { item: item }) }}
           />
         )}
       />
-      
+
       {/* New mail Button */}
       <TouchableOpacity
         style={styles.composeButton}
-        onPress={()=>navigation.navigate('NewMail')}
+        onPress={() => navigation.navigate('NewMail')}
       >
-        <Image 
-        style={{height:20, width:20, tintColor: "white"}}
-        source={icons.plus}/>
+        <Image
+          style={{ height: 20, width: 20, tintColor: "white" }}
+          source={icons.plus} />
         <Text style={styles.composeButtonText}>New Mail</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -58,13 +62,12 @@ const Inbox = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "black", paddingVertical: SIZES.padding },
-  // Your other styles...
-
-  // Compose Button Styles
+  container: { flex: 1, backgroundColor:COLORS.light,
+    //  paddingHorizontal:SIZES.padding
+    },
   composeButton: {
-    flexDirection:"row",
-    justifyContent:"space-between",
+    flexDirection: "row",
+    justifyContent: "space-between",
     position: 'absolute',
     bottom: 30,
     right: 16,
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     // elevation: 5,
   },
   composeButtonText: {
-    marginLeft:10,
+    marginLeft: 10,
     ...FONTS.h3,
     color: "white",
   },

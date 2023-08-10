@@ -40,7 +40,7 @@ const AuthContainer = ({ mode, setMode }) => {
 
 
                 // Fetch countries
-                const response =  await axios.get("https://restcountries.com/v2/all");
+                const response = await axios.get("https://restcountries.com/v2/all");
 
                 const countryData = response.data.map(item => ({
                     code: item.alpha2Code,
@@ -151,48 +151,55 @@ const AuthContainer = ({ mode, setMode }) => {
 
                 </View>
                 {renderFooter()}
-                
+
             </View>
         )
     }
-    function renderFooter(){
-        return(
+    function renderFooter() {
+        return (
             <View style={{
-                flexDirection:'row',
-                height:80,
-                alignItems:"flex-end",
-                justifyContent:"center",
-                marginTop:-30,
-                marginHorizontal:SIZES.radius,
-                paddingBottom:SIZES.radius,
-                borderBottomLeftRadius:SIZES.radius,
-                borderBottomRightRadius:SIZES.radius,
-                backgroundColor:COLORS.gray,
-                zIndex:0
+
+                flexDirection: 'row',
+                height: 80,
+                alignItems: "flex-end",
+                justifyContent: "center",
+                marginTop: -30,
+                marginHorizontal: SIZES.radius,
+                paddingBottom: SIZES.radius,
+                borderBottomLeftRadius: SIZES.radius,
+                borderBottomRightRadius: SIZES.radius,
+                backgroundColor: COLORS.light,
+                zIndex: 0
             }}>
-                <Text style={{color:COLORS.grey,
-                ...FONTS.body5}}>
-                    {mode=="login"?"Don't have an account?":"Already have an account."}
+                <Text style={{
+                    color: COLORS.grey,
+                    ...FONTS.body5
+                }}>
+                    {mode == "login" ? "Don't have an account?" : "Already have an account."}
 
                 </Text>
                 <TextButton
-                label={mode=="login"?"Creacte new account":"Log In"}
-                contentContainerStyle={{marginLeft:SIZES.base,
-                backgroundColor:null}}
-                labelStyle={{color:COLORS.support3,
-                ...FONTS.h5 }}
-                onPress={()=>{
-                    if (animationState.current === "login") {
-                        animationState.transitionTo('signup')
-                        setMode("signup")
+                    label={mode == "login" ? "Creacte new account" : "Log In"}
+                    contentContainerStyle={{
+                        marginLeft: SIZES.base,
+                        backgroundColor: null
+                    }}
+                    labelStyle={{
+                        color: COLORS.support3,
+                        ...FONTS.h5
+                    }}
+                    onPress={() => {
+                        if (animationState.current === "login") {
+                            animationState.transitionTo('signup')
+                            setMode("signup")
 
-                    }
-                    else {
-                        animationState.transitionTo('login')
-                        setMode("login")
+                        }
+                        else {
+                            animationState.transitionTo('login')
+                            setMode("login")
 
-                    }
-                }}/>
+                        }
+                    }} />
 
             </View>
         )
@@ -204,7 +211,7 @@ const AuthContainer = ({ mode, setMode }) => {
                 style={{
                     marginTop: SIZES.padding,
                     height: SIZES.height * 0.75,
-                    zIndex:0                    
+                    zIndex: 0
                 }}>
                 <View style={styles.AuthContainer}>
                     <Text style={styles.loginTitle}>
@@ -323,20 +330,20 @@ const AuthContainer = ({ mode, setMode }) => {
 
                     </KeyboardAwareScrollView>
                     <TextButton
-                    label="Create Account"
+                        label="Create Account"
                         contentContainerStyle={{
                             height: 55,
                             borderRadius: SIZES.radius,
                             backgroundColor: COLORS.primary
                         }}
-                        labelStyle={{...FONTS.h3}}
-                        onPress={()=>console.log("account created") } />
+                        labelStyle={{ ...FONTS.h3 }}
+                        onPress={() => console.log("account created")} />
 
                 </View>
-                
-                    {renderFooter()}
 
-                    
+                {renderFooter()}
+
+
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -418,20 +425,20 @@ export default AuthContainer
 
 const styles = StyleSheet.create({
     AuthContainer: {
-        
+
         flex: 1,
-        // elevation: 10,
+        elevation: 10,
         width: SIZES.width - (SIZES.padding * 2),
         padding: SIZES.padding,
         borderRadius: SIZES.radius,
-        backgroundColor: COLORS.gray,
-        zIndex:1,
+        backgroundColor: COLORS.light,
+        zIndex: 1,
 
     },
     loginTitle: {
         width: '80%',
         lineHeight: 45,
-        color: 'white',
+        color: COLORS.gray,
         ...FONTS.h1,
         fontWeight: 'bold'
     },
@@ -440,5 +447,5 @@ const styles = StyleSheet.create({
         height: 25,
         marginRight: SIZES.base
     },
-    
+
 })
