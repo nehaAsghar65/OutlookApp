@@ -6,4 +6,5 @@ import TabIcon from "./TabIcon";
 import MailCard from "./MailCard";
 import PickerList from "./PickerList";
 import ReplyFooter from "./ReplyFooter";
-export {ReplyFooter,MailCard,TextButton,AuthContainer,FormInputs,IconButton,TabIcon,PickerList}
+import MailAttachments from "./MailAttachments";
+export {MailAttachments,ReplyFooter,MailCard,TextButton,AuthContainer,FormInputs,IconButton,TabIcon,PickerList}

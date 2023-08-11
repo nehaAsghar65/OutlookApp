@@ -4,7 +4,7 @@ import { COLORS, SIZES, FONTS, icons } from '../constants';
 import FormInputs from './FormInputs';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
-const ReplyFooter = () => {
+const MailAttachments = () => {
   const [reply, setReply] = useState('');
   const { height } = Dimensions.get('window');
   const BottomSheetModalRef = useRef(null);
@@ -79,7 +79,7 @@ const ReplyFooter = () => {
 
 
 
-export default ReplyFooter;
+export default MailAttachments;
 
 
 const styles = StyleSheet.create({

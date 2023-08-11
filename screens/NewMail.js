@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, SafeAreaView,StyleSheet } from 'react-native';
 import { COLORS, SIZES, FONTS } from '../constants';
 import { useNavigation } from '@react-navigation/native';
-
+import { MailAttachments } from '../components';
 const MyComponent = () => {
     const navigation=useNavigation()
     const [composeDetails, setComposeDetails] = useState({
@@ -27,9 +27,9 @@ const MyComponent = () => {
       }, [navigation])
 
     return (
-        <View style={{ flex: 1, paddingHorizontal: 20, paddingVertical: SIZES.padding, backgroundColor: COLORS.light }}>
+        <SafeAreaView style={{ flex: 1, paddingVertical: SIZES.padding,paddingHorizontal:10, backgroundColor: COLORS.light }}>
             
-            <View style={{ flexDirection: 'row'  }}>
+            <View style={{ flexDirection: 'row' ,}}>
             <Text style={styles.fieldTitle}>To</Text>
                 <TextInput
                     style={styles.input}
@@ -37,7 +37,10 @@ const MyComponent = () => {
                     onChangeText={(text) => handleChange('receiver', text)}
                 />
             </View>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.borderBottom}/>
+
+
+            <View style={{ flexDirection: 'row',}}>
             <Text style={styles.fieldTitle}>Subject</Text>
                 <TextInput
                 
@@ -46,7 +49,12 @@ const MyComponent = () => {
                     onChangeText={(text) => handleChange('subject', text)}
                     
                 />
+                
             </View>
+            <View style={styles.borderBottom}/>
+
+
+
             <View style={{ flexDirection: 'row' }}>
             <Text style={styles.fieldTitle}>Body</Text>
                 <TextInput
@@ -58,30 +66,37 @@ const MyComponent = () => {
 
                 />
             </View>
-        </View>
+            <MailAttachments/>
+        </SafeAreaView>
     );
 };
 
 const styles = {
+    borderBottom:{
+      
+        width: '95%',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: COLORS.gray,
+      },
     input: {
-        // paddingHorizontal:SIZES.padding,
+        
         color: 'white',
-        borderWidth: 1,
+        // borderWidth: 1,
         width:"80%",
-        // padding: 10,
-        marginRight:"50%",
-        marginBottom: 20,
+        marginBottom: 0,
         borderRadius: 5,
-        fontSize: 16,
+        ...FONTS.body3,
+        color:COLORS.gray,
         backgroundColor: COLORS.light,
+        
     },
     textArea: {
         color: 'white',
-        borderWidth: 1,
+        // borderWidth: 1,
         width:"80%",
         marginRight:"50%",
-        padding: 10,
         marginBottom: 20,
+        marginTop:5,
         borderRadius: 5,
         fontSize: 16,
         backgroundColor: COLORS.light,
@@ -95,10 +110,8 @@ const styles = {
     },
     fieldTitle: {
         color: COLORS.gray,
+        ...FONTS.body3,
         padding: 15,
-        marginBottom: 10,
-        borderRadius: 5,
-        fontSize: 16,
         backgroundColor: COLORS.light,
     }
 };
