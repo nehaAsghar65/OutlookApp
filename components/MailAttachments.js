@@ -1,80 +1,116 @@
-import React, { Component, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Animated, Dimensions, ScrollView } from 'react-native';
+import React, { useCallback, useRef, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Animated, Dimensions, Alert, ScrollView } from 'react-native';
 import { COLORS, SIZES, FONTS, icons } from '../constants';
-import FormInputs from './FormInputs';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-
+import { RNCamera } from 'react-native-camera'
+import { BottomSheet } from '../screens';
+import { AudioRecorder, AudioUtils } from 'react-native-audio';
+import IconButton from './IconButton'
 const MailAttachments = () => {
-  const [reply, setReply] = useState('');
-  const { height } = Dimensions.get('window');
-  const BottomSheetModalRef = useRef(null);
-  const snapPoints = ["50%"]
+    const [cameraPermission, setCameraPermission] = useState(false);
+    const { height } = Dimensions.get('window');
+    const BottomSheetModalRef = useRef(null);
+    const [showBottomSheet, setShowBottomSheet] = useState(false);
+    const [activeBottomSheet, setActiveBottomSheet] = useState("")
+    const [isRecording, setIsRecording] = useState(false)
 
-  function handlePressModal() {
-    BottomSheetModalRef.current?.present();
-  }
 
-  return (
-    <View style={styles.container}>
-      <FormInputs
-        containerStyle={{
-          borderRadius: SIZES.radius,
-          backgroundColor: COLORS.primary,
-        }}
-        placeHolder="Reply"
-        value={reply}
-        onChange={(text) => setReply(text)}
+    const snapPoints = ["30%"]
 
-        prependComponent={
+    function handlePressModal() {
+        BottomSheetModalRef.current?.present();
+    }
+    function handlePress() {
+        setActiveBottomSheet("modal2")
+        // BottomSheetModalRef2.current?.present();
+        console.log(activeBottomSheet, '===')
+    }
+    // const handleSheetChange = useCallback(index=>{console.log(index)},[])
 
-          <TouchableOpacity
-            onPress={handlePressModal}
-            style={{ flexDirection: 'row', paddingHorizontal: SIZES.radius }}>
-            <Image source={icons.reply} style={styles.iconStyle} />
-            <Image source={icons.arrow_down} style={styles.iconStyle} />
-          </TouchableOpacity>
-        }
 
-      />
-      <BottomSheetModalProvider >
-        <BottomSheetModal
-          ref={BottomSheetModalRef}
-          index={0}
-          snapPoints={snapPoints}
-          backgroundStyle={{
-            borderRadius: 40, backgroundColor: COLORS.light, shadowColor: "#black",
-            shadowOffset: {
-              width: "100%",
-              height: "100%",
-            },
-            shadowOpacity: -40.53,
-            shadowRadius: 90.97,
+    return (
+        <View style={styles.container}>
 
-            elevation: 10,
-          }}>
-          <View style={{ flex: 1, paddingHorizontal: SIZES.padding }}>
-            <TouchableOpacity style={styles.replyForward}>
-              <Image
-                style={ styles.icon} source={icons.reply} />
-              <Text style={styles.text}>Reply</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.replyForward}>
-              <Image
-                style={styles.icon} source={icons.forward} />
-              <Text style={styles.text}>Forward</Text>
-            </TouchableOpacity>
-            <View style={styles.borderBottom} />
-            <TouchableOpacity style={styles.replyForward}>
-              <Image
-                style={styles.icon} source={icons.person} />
-              <Text style={styles.text}>Edit Recipients</Text>
-            </TouchableOpacity>
 
-          </View>
-        </BottomSheetModal>
-      </BottomSheetModalProvider>
-    </View>
-  );
+            {cameraPermission && <RNCamera
+                ref={ref => {
+                    this.camera = ref;
+                }}
+                captureAudio={false}
+                style={{ flex: 1, alignItems: 'flex-start' }}
+                type={RNCamera.Constants.Type.back}
+                androidCameraPermissionOptions={{
+                    title: 'Permission to use camera',
+                    message: 'We need your permission to use your camera',
+                    buttonPositive: 'Ok',
+                    buttonNegative: 'Cancel',
+                }} />}
+
+            <View style={styles.container}>
+                <View style={styles.footer}>
+                    <TouchableOpacity
+                        onPress={handlePressModal}
+                        style={{ flexDirection: 'row' }}>
+                        <Image source={icons.profile} style={styles.iconStyle} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handlePress}>
+                        <Image source={icons.attachment} style={styles.iconStyle} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setCameraPermission(true)}>
+                        <Image source={icons.camera} style={styles.iconStyle} />
+                    </TouchableOpacity>
+                    <TouchableOpacity >
+                        <Image source={icons.microphone} style={styles.iconStyle} />
+                    </TouchableOpacity>
+                </View>
+                {activeBottomSheet == "modal2" && <BottomSheet activeBottomSheet={activeBottomSheet} setActiveBottomSheet={setActiveBottomSheet} />}
+                <BottomSheetModalProvider >
+                    <BottomSheetModal
+                        ref={BottomSheetModalRef}
+                        index={0}
+                        // onChange={handleSheetChange}
+                        snapPoints={snapPoints}
+                        backgroundStyle={{
+                            borderRadius: 40, backgroundColor: COLORS.light, shadowColor: "#black",
+                            shadowOffset: {
+                                width: "100%",
+                                height: "100%",
+                            },
+                            shadowOpacity: -40.53,
+                            shadowRadius: 90.97,
+                            elevation: 10,
+                        }}>
+                        <View style={styles.contentContainer}>
+                            <TouchableOpacity style={styles.replyForward}>
+                                <Image
+                                    style={styles.icon} source={icons.reply} />
+                                <Text style={styles.text}>Reply</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.replyForward}>
+                                <Image
+                                    style={styles.icon} source={icons.forward} />
+                                <Text style={styles.text}>Forward</Text>
+                            </TouchableOpacity>
+                            <View style={styles.borderBottom} />
+                            <TouchableOpacity style={styles.replyForward}>
+                                <Image
+                                    style={styles.icon} source={icons.person} />
+                                <Text style={styles.text}>Edit Recipients</Text>
+                            </TouchableOpacity>
+                            <IconButton
+
+                                icon={icons.microphone}
+                                iconStyle={{ tintColor: COLORS.grey }}
+                                // onPress={() => setIsVisible(!isVisible)}
+                                 />
+
+                        </View>
+                    </BottomSheetModal>
+                </BottomSheetModalProvider>
+
+            </View>
+        </View>
+    );
 };
 
 
@@ -83,37 +119,54 @@ export default MailAttachments;
 
 
 const styles = StyleSheet.create({
-borderBottom:{
-  width: '100%',
-  borderBottomWidth: StyleSheet.hairlineWidth,
-  borderBottomColor: COLORS.gray,
-},
+    footer: {
+        // flex: 1,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: COLORS.gray,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor: COLORS.light,
+        marginTop: '110%',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100%',
+        height: '10%'
 
-  iconStyle: {
-    tintColor: COLORS.grey,
-    width: 22,
-    height: 22
+    },
+    borderBottom: {
+        width: '100%',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: COLORS.gray,
+    },
 
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: 'white',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    width: '100%',
-    height: '6%',
-  },
-  replyForward: {
-    flexDirection: 'row', padding: 10
-  },
-  icon: {
-    width: 20,
-    height: 20,
-    tintColor: COLORS.grey
-  },
-  text:{ marginLeft: 10, ...FONTS.body3 }
+    iconStyle: {
+        marginLeft: SIZES.radius,
+        tintColor: COLORS.grey,
+        width: 25,
+        height: 25
+
+    },
+    container: {
+
+        flex: 1,
+        backgroundcolor: 'grey'
+    },
+    contentContainer: {
+        paddingHorizontal: 15,
+        flex: 1,
+        alignItems: 'flex-start'
+    },
+    replyForward: {
+        flexDirection: 'row', padding: 10
+    },
+    icon: {
+        width: 20,
+        height: 20,
+        tintColor: COLORS.grey
+    },
+    text: { marginLeft: 10, ...FONTS.body3 }
 
 });
 

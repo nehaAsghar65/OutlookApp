@@ -33,8 +33,16 @@ const forward=require("../assets/icons/forward.png")
 const dots=require("../assets/icons/dots.png")
 const bin=require("../assets/icons/delete.png")
 const archive=require("../assets/icons/archive.png")
+const camera=require("../assets/icons/camera.png")
+const files=require("../assets/icons/files.png")
+const photos=require("../assets/icons/photos.png")
+const microphone=require("../assets/icons/microphone.png")
 
 export default {
+    microphone,
+    files,
+    photos,
+    camera,
     dots,
     bin,
     archive,

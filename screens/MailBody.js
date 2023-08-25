@@ -1,14 +1,13 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import { Card, IconButton, Avatar, Caption, Button, Searchbar, Portal } from 'react-native-paper';
 import { COLORS, FONTS, SIZES, icons } from '../constants';
-import { green100 } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 import { ReplyFooter } from '../components';
 const MailBody = ({ route }) => {
     const { item } = route.params
     // console.log(item)
     return (
-        <View style={styles.mainContainer}>
+        <SafeAreaView  style={{ flex: 1, paddingVertical: SIZES.base, backgroundColor: COLORS.light }}>
 
             <ScrollView style={styles.scrollView}>
                 <Text style={styles.title}>{item.title}</Text>
@@ -33,7 +32,7 @@ const MailBody = ({ route }) => {
                 
             </ScrollView>
            <ReplyFooter/>
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -69,6 +68,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         backgroundColor: COLORS.light,
         height: '100%',
+        flex:1,
     },
     scrollView: {
         paddingTop: 0,

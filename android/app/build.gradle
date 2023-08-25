@@ -78,8 +78,10 @@ android {
         applicationId "com.outlookclone"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        missingDimensionStrategy 'react-native-camera','general'
         versionCode 1
         versionName "1.0"
+
     }
     signingConfigs {
         debug {

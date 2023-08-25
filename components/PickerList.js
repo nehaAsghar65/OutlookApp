@@ -69,12 +69,20 @@ const PickerList = ({ showList, setShowList,filterStatus,setFilterStatus }) => {
 };
 const styles = StyleSheet.create({
     container: {
+        
         width: 170,
-        height: "125%",
-        borderRadius: SIZES.radius,
+        height: "110%",
         marginTop: "30%",
         backgroundColor: COLORS.light,
-        alignSelf: "center"
+        shadowOffset: {
+            width: "100%",
+            height: "100%",
+        },
+        shadowOpacity: 40.53,
+        shadowRadius: 90.97,
+
+        elevation: 10,
+        shadowColor:'black'
     },
     item: {
         flexDirection: "row",
