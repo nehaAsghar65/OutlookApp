@@ -28,7 +28,7 @@ const MyComponent = () => {
     }, [navigation])
 
     return (
-        <SafeAreaView style={{ flex: 1, alignItems:'flex-start',paddingVertical: SIZES.base, paddingHorizontal:SIZES.base,backgroundColor: COLORS.light}}>
+        <SafeAreaView style={{ flex: 1,paddingVertical: SIZES.base, paddingHorizontal:SIZES.base,backgroundColor: COLORS.light}}>
             <View>
                 <View style={{ flexDirection: 'row', }}>
                     <Text style={styles.fieldTitle}>To</Text>

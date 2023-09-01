@@ -3,11 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Image, View, Text, TouchableOpacity, Alert,StyleSheet } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
 import { Home, LandingScreen, NewMail, MailBody, Login, Signup, Welcome, Mail, Calender, Apps, Feed, Search } from '../screens';
-import CustomDrawer from "./CustomDrawer";
 import TabNavigation from './TabNavigation';
 import { IconButton, PickerList } from '../components';
 import { icons, COLORS, FONTS, SIZES } from '../constants';
-
+import {showPicker} from '../components/PickerList'
 
 
 const Stack = createStackNavigator();
@@ -154,15 +153,8 @@ const MainStackNavigator = () => {
     );
 };
 
-// define your styles
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#2c3e50',
-    },
+    
 });
 
-//make this component available to the app
 export default MainStackNavigator;

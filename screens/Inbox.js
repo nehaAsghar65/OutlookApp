@@ -24,13 +24,19 @@ const Inbox = ({ navigation }) => {
     };
     fetchData();
   }, []);
-
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerTitle: () => (<View><Text style={{ color: 'red', fontSize: 18, fontWeight: "bold" }}>New Message</Text>
+  //       <Text style={{ color: 'white', ...FONTS.body5 }}>44</Text></View>),
+  //     //   headerRight: () => <Text style={{color:'white'}}>text</Text>
+  //   })
+  // }, [navigation])
 
   return (
-    <SafeAreaView 
-    
-    style={styles.container}>
-      
+    <SafeAreaView
+
+      style={styles.container}>
+
       <FlatList
         data={data}
         vertical
@@ -39,7 +45,7 @@ const Inbox = ({ navigation }) => {
         renderItem={({ item }) => (
           <MailCard
             containerStyle={{
-              marginHorizontal:28
+              marginHorizontal: 28
             }}
             mailItem={item}
             onPress={() => { navigation.navigate('MailBody', { item: item }) }}
@@ -62,9 +68,10 @@ const Inbox = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor:COLORS.light,
+  container: {
+    flex: 1, backgroundColor: COLORS.light,
     //  paddingHorizontal:SIZES.padding
-    },
+  },
   composeButton: {
     flexDirection: "row",
     justifyContent: "space-between",

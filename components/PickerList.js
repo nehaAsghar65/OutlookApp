@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image ,SafeAreaView} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { COLORS, FONTS, SIZES } from '../constants';
 import dummyData from '../constants';
 import icons from '../constants/icons';
 import IconButton from './IconButton';
+
 const PickerList = ({ showList, setShowList,filterStatus,setFilterStatus }) => {
     // const [selectedValue, setSelectedValue] = useState("All messages");
     const filterItems = [{
@@ -39,7 +40,7 @@ const PickerList = ({ showList, setShowList,filterStatus,setFilterStatus }) => {
 
     // console.log(filterItems)
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <FlatList
                 data={filterItems}
                 renderItem={({ item, index }) => {
@@ -64,15 +65,17 @@ const PickerList = ({ showList, setShowList,filterStatus,setFilterStatus }) => {
                     )
                 }}
             />
-        </View>
+        </SafeAreaView>
     );
 };
 const styles = StyleSheet.create({
     container: {
         
         width: 170,
-        height: "110%",
-        marginTop: "30%",
+        height: 270,
+        position:'absolute',
+        marginTop: 80,
+        marginRight:200,
         backgroundColor: COLORS.light,
         shadowOffset: {
             width: "100%",

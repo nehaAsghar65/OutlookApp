@@ -1,11 +1,12 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Animated, Dimensions, Alert, ScrollView } from 'react-native';
 import { COLORS, SIZES, FONTS, icons } from '../constants';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { RNCamera } from 'react-native-camera'
 import { BottomSheet } from '../screens';
-import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import IconButton from './IconButton'
+// import { Camera } from 'react-native-vision-camera';
+
 const MailAttachments = () => {
     const [cameraPermission, setCameraPermission] = useState(false);
     const { height } = Dimensions.get('window');
@@ -15,7 +16,7 @@ const MailAttachments = () => {
     const [isRecording, setIsRecording] = useState(false)
 
 
-    const snapPoints = ["30%"]
+    const snapPoints = ["31%"]
 
     function handlePressModal() {
         BottomSheetModalRef.current?.present();
@@ -25,26 +26,40 @@ const MailAttachments = () => {
         // BottomSheetModalRef2.current?.present();
         console.log(activeBottomSheet, '===')
     }
-    // const handleSheetChange = useCallback(index=>{console.log(index)},[])
+    // useEffect(() => {
+    //     getPermissions();
+
+    // }, [])
+    // const getPermissions = async () => {
+    //     const newCameraPermission = await Camera.requestCameraPermission()
+    //     const newMicrophonePermission = await Camera.requestMicrophonePermission()
+    // }
+
 
 
     return (
         <View style={styles.container}>
 
 
-            {cameraPermission && <RNCamera
-                ref={ref => {
-                    this.camera = ref;
-                }}
-                captureAudio={false}
-                style={{ flex: 1, alignItems: 'flex-start' }}
-                type={RNCamera.Constants.Type.back}
-                androidCameraPermissionOptions={{
-                    title: 'Permission to use camera',
-                    message: 'We need your permission to use your camera',
-                    buttonPositive: 'Ok',
-                    buttonNegative: 'Cancel',
-                }} />}
+            {cameraPermission && (
+                <RNCamera
+
+                    ref={ref => {
+                        this.camera = ref
+                    }}
+
+                    captureAudio={false}
+                    style={{ flex: 1, alignItems: 'flex-start' }}
+                    type={RNCamera.Constants.Type.back}
+                    androidCameraPermissionOptions={{
+                        title: 'Permission to use camera',
+                        message: 'We need your permission to use your camera',
+                        buttonPositive: 'Ok',
+                        buttonNegative: 'Cancel',
+                    }}
+                />
+            )}
+
 
             <View style={styles.container}>
                 <View style={styles.footer}>
@@ -71,7 +86,7 @@ const MailAttachments = () => {
                         // onChange={handleSheetChange}
                         snapPoints={snapPoints}
                         backgroundStyle={{
-                            borderRadius: 40, backgroundColor: COLORS.light, shadowColor: "#black",
+                            borderRadius: 40, backgroundColor: COLORS.light, shadowColor: "black",
                             shadowOffset: {
                                 width: "100%",
                                 height: "100%",
@@ -101,8 +116,8 @@ const MailAttachments = () => {
 
                                 icon={icons.microphone}
                                 iconStyle={{ tintColor: COLORS.grey }}
-                                // onPress={() => setIsVisible(!isVisible)}
-                                 />
+                            // onPress={() => setIsVisible(!isVisible)}
+                            />
 
                         </View>
                     </BottomSheetModal>
@@ -130,7 +145,7 @@ const styles = StyleSheet.create({
         marginTop: '110%',
         left: 0,
         right: 0,
-        bottom: 0,
+        bottom: 20,
         width: '100%',
         height: '10%'
 
@@ -151,6 +166,14 @@ const styles = StyleSheet.create({
     container: {
 
         flex: 1,
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        elevation: 0,
+        // backgroundColor: 'black',
+        // borderTopColor: "transparent",
+        // height: 100,
         backgroundcolor: 'grey'
     },
     contentContainer: {

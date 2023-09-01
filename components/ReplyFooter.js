@@ -17,67 +17,67 @@ const ReplyFooter = () => {
   return (
     <View style={styles.container}>
       {/* <View style={styles.container}> */}
-        <View style={styles.footer}>
-          <FormInputs
-            containerStyle={{
-              borderRadius: SIZES.radius,
-              backgroundColor: COLORS.primary,
-            }}
-            placeHolder="Reply"
-            // defaultValue={reply}
-            
-            onChange={(text) => setReply(text)}
+      <View style={styles.footer}>
+        <FormInputs
+          containerStyle={{
+            borderRadius: SIZES.radius,
+            backgroundColor: COLORS.primary,
+          }}
+          placeHolder="Reply"
+          // defaultValue={reply}
 
-            prependComponent={
+          onChange={(text) => setReply(text)}
 
-              <TouchableOpacity
-                onPress={handlePressModal}
-                style={{ flexDirection: 'row', paddingHorizontal: SIZES.radius }}>
-                <Image source={icons.reply} style={styles.iconStyle} />
-                <Image source={icons.arrow_down} style={styles.iconStyle} />
-              </TouchableOpacity>
-            }
+          prependComponent={
 
-          />
-        </View>
+            <TouchableOpacity
+              onPress={handlePressModal}
+              style={{ flexDirection: 'row', paddingHorizontal: SIZES.radius }}>
+              <Image source={icons.reply} style={styles.iconStyle} />
+              <Image source={icons.arrow_down} style={styles.iconStyle} />
+            </TouchableOpacity>
+          }
 
-        <BottomSheetModalProvider >
-          <BottomSheetModal
-            ref={BottomSheetModalRef}
-            index={0}
-            snapPoints={snapPoints}
-            backgroundStyle={{
-              borderRadius: 40, backgroundColor: COLORS.light, shadowColor: "#black",
-              shadowOffset: {
-                width: "100%",
-                height: "100%",
-              },
-              shadowOpacity: -40.53,
-              shadowRadius: 90.97,
+        />
+      </View>
 
-              elevation: 10,
-            }}>
-            <View style={styles.contentContainer}>
-              <TouchableOpacity style={styles.replyForward}>
-                <Image
-                  style={styles.icon} source={icons.reply} />
-                <Text style={styles.text}>Reply</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.replyForward}>
-                <Image
-                  style={styles.icon} source={icons.forward} />
-                <Text style={styles.text}>Forward</Text>
-              </TouchableOpacity>
-              <View style={styles.borderBottom} />
-              <TouchableOpacity style={styles.replyForward}>
-                <Image
-                  style={styles.icon} source={icons.person} />
-                <Text style={styles.text}>Edit Recipients</Text>
-              </TouchableOpacity>
+      <BottomSheetModalProvider >
+        <BottomSheetModal
+          ref={BottomSheetModalRef}
+          index={0}
+          snapPoints={snapPoints}
+          backgroundStyle={{
+            borderRadius: 40, backgroundColor: COLORS.light, shadowColor: "#black",
+            shadowOffset: {
+              width: "100%",
+              height: "100%",
+            },
+            shadowOpacity: -40.53,
+            shadowRadius: 90.97,
 
-            </View>
-          </BottomSheetModal>
-        </BottomSheetModalProvider>
+            elevation: 10,
+          }}>
+          <View style={styles.contentContainer}>
+            <TouchableOpacity style={styles.replyForward}>
+              <Image
+                style={styles.icon} source={icons.reply} />
+              <Text style={styles.text}>Reply</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.replyForward}>
+              <Image
+                style={styles.icon} source={icons.forward} />
+              <Text style={styles.text}>Forward</Text>
+            </TouchableOpacity>
+            <View style={styles.borderBottom} />
+            <TouchableOpacity style={styles.replyForward}>
+              <Image
+                style={styles.icon} source={icons.person} />
+              <Text style={styles.text}>Edit Recipients</Text>
+            </TouchableOpacity>
+
+          </View>
+        </BottomSheetModal>
+      </BottomSheetModalProvider>
       {/* </View> */}
     </View >
   );
@@ -90,7 +90,7 @@ export default ReplyFooter;
 
 const styles = StyleSheet.create({
   footer: {
-    position:'relative',
+    position: 'relative',
     borderTopWidth: 0.5,
     borderTopColor: COLORS.gray,
     // flexDirection: 'row',
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     // width: '100%',
     // height: '10%'
 
-},
+  },
   borderBottom: {
     width: '100%',
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -120,13 +120,21 @@ const styles = StyleSheet.create({
   container: {
 
     flex: 1,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    elevation: 0,
+    // backgroundColor: 'black',
+    // borderTopColor: "transparent",
+    // height: 100,
     backgroundcolor: 'grey'
-},
-contentContainer: {
+  },
+  contentContainer: {
     paddingHorizontal: 15,
     flex: 1,
     alignItems: 'flex-start'
-},
+  },
   replyForward: {
     flexDirection: 'row', padding: 10
   },
