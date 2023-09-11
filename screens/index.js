@@ -13,4 +13,10 @@ import NewMail from './NewMail'
 import MailBody from "./MailBody";
 import Search from "./Search";
 import BottomSheet from "./BottomSheet";
-export {BottomSheet,Search,Welcome,NewMail,MailBody,Inbox,Home,MainLayout,LandingScreen,Login,Signup,Apps, Mail,Feed,Calender}
+import Drafts from "./DrawerScreens/Drafts";
+import Archive from "./DrawerScreens/Archive";
+import Deleted from "./DrawerScreens/Deleted";
+import Groups from "./DrawerScreens/Groups";
+import Junk from "./DrawerScreens/Junk";
+import Sent from "./DrawerScreens/Sent";
+export {Archive,Deleted,Groups,Junk,Sent,Drafts,BottomSheet,Search,Welcome,NewMail,MailBody,Inbox,Home,MainLayout,LandingScreen,Login,Signup,Apps, Mail,Feed,Calender}

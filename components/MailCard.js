@@ -2,24 +2,31 @@
 import React, { Component, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { SIZES, COLORS, FONTS, icons, images } from '../constants';
-import {colors} from '../constants';
+import moment from 'moment'
+import { colors } from '../constants';
 const MailCard = ({ containerStyle, mailItem, onPress }) => {
-  
-    
-    
-    const [randColor, setRandColor]=useState('')
-    const nameParts = mailItem.name.split(' ');
-    const firstNameInitial = nameParts[0].charAt(0);
-    const lastNameInitial = nameParts[1] ? nameParts[1].charAt(0) : '';
-    const initials = `${firstNameInitial}${lastNameInitial}`;
-    useEffect(()=>{
-        const randomIndex = Math.floor(Math.random() * colors.length);
-        const selectedColor = colors[randomIndex];
-        setRandColor(selectedColor)
-        // console.log(randColor)
-        
-    },[])
-    // console.log("mail item------", colors)
+    const [initials, setInitials] = useState('')
+    const [initialsExist, setInitialsExist] = useState(false)
+    const [formattedDate, setFormattedDate] = useState(''); 
+
+
+
+    useEffect(() => {
+        if (mailItem.participants.length != 0)
+        {   
+            console.log('---',mailItem.participants.length)
+            setInitialsExist(true)
+            const nameParts = mailItem.participants[0].name.split(' ')
+            const firstNameInitial = nameParts[0].charAt(0)
+            const lastNameInitial = nameParts[1] ? nameParts[1].charAt(0) : ''
+            setInitials( `${firstNameInitial}${lastNameInitial}`)
+        }
+        if (mailItem.messages[0].dtm) {
+            const date = moment(mailItem.messages[0].dtm).format('MMM Do');
+            setFormattedDate(date);
+        }
+    }, [])
+
     return (
         <TouchableOpacity
             style={{
@@ -30,47 +37,46 @@ const MailCard = ({ containerStyle, mailItem, onPress }) => {
         >
             {/* image */}
             <View style={{
-                marginLeft:5,
+                marginLeft: 5,
                 width: 50,
                 height: 50,
                 borderRadius: 70 / 2,
                 backgroundColor: colors.carolinaBlue
             }}>
-                <Text style={styles.initials}>{initials}</Text>
+                {initials && <Text style={styles.initials}>{initials}</Text>}
             </View>
-            {/* <Image
-                source={images.logo}
-                resizeMode='cover'
-                style={styles.imageContainer}
-            /> */}
+            
             {/* Details */}
             <View style={styles.titleContainer}>
 
                 <View style={{
-                    justifyContent: 'space-between', flexDirection: "row",
+                    flexDirection: "row", justifyContent: 'space-between'
+
+
                 }}>
-                    <Text
+                    {initialsExist && <Text
                         ellipsizeMode='tail' numberOfLines={1}
                         style={{
 
                             ...FONTS.body3,
                             ...styles.title
                         }}
-                    >
-                        {mailItem.name}
-                    </Text>
+                    >{mailItem.participants[0].name}
+                    </Text>}
+
+
                     <Text style={{
 
                         ...FONTS.body5,
-                        ...styles.title
+                        ...styles.date
                     }}>
-                        {mailItem.time}
+                        {formattedDate}
                     </Text>
 
                 </View>
 
                 {/* Additional details */}
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', }}>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                     <View style={styles.subDetail}>
                         <Text
                             ellipsizeMode='tail' numberOfLines={1}
@@ -81,7 +87,7 @@ const MailCard = ({ containerStyle, mailItem, onPress }) => {
 
                             }}
                         >
-                            {mailItem.title}
+                            {mailItem.messages[0].subject}
                         </Text>
                         <Text
                             ellipsizeMode='tail' numberOfLines={1}
@@ -92,7 +98,7 @@ const MailCard = ({ containerStyle, mailItem, onPress }) => {
 
                             }}
                         >
-                            {mailItem.subTitle}
+                            {mailItem.messages[0].body.replace(/(\r\n|\n|\r)/gm, "")}
                         </Text>
                     </View>
                     <TouchableOpacity
@@ -118,14 +124,11 @@ const styles = StyleSheet.create({
         borderBottomColor: COLORS.grey,
         borderBottomWidth: 0.5,
         borderBottomEndRadius: 3,
-        // marginTop:90,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent:'center',
+        justifyContent: 'center',
         height: 55,
-        // marginBottom:20,
         marginVertical: 7,
-        // paddingVertical:10,
         borderRadius: SIZES.radius,
         backgroundColor: null,
 
@@ -137,7 +140,14 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
 
-        width: '95%', paddingHorizontal: 10,
+        width: '95%', paddingHorizontal: 10, justifyContent: 'space-between'
+    },
+    date: {
+        // marginBottom: 3,
+        // textAlign: 'right',
+        marginLeft: 0,
+        color: COLORS.gray,
+        fontWeight: 'bold',
     },
     title: {
         marginBottom: 3,
@@ -156,11 +166,11 @@ const styles = StyleSheet.create({
         color: COLORS.gray,
         // marginRight: 90,
     },
-    initials:{
-        color:COLORS.light,
+    initials: {
+        color: COLORS.light,
         ...FONTS.body2,
-        textAlign:'center',
-        marginTop:10
+        textAlign: 'center',
+        marginTop: 10
         // alignItems:'center',
         // justifyContent:'center'
     }

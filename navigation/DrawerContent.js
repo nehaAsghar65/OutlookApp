@@ -6,12 +6,11 @@ import { COLORS, FONTS, SIZES, icons, images } from '../constants';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Avatar, Caption, IconButton, Title } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import { useNavigation } from '@react-navigation/native';
 const Drawer = createDrawerNavigator();
 
-// create a component
 const DrawerContent = (props) => {
-    // console.log(props)
+    const navigation=useNavigation()
     return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
 
@@ -66,6 +65,7 @@ const DrawerContent = (props) => {
                                         style={{ width: 25, height: 25 }}
                                     />
                                 )}
+                                onPress={()=>{navigation.navigate('Drafts')}}
                                 label="Drafts" />
                             <DrawerItem
                                 icon={() => (
@@ -73,6 +73,7 @@ const DrawerContent = (props) => {
                                         style={{ width: 25, height: 25, tintColor: COLORS.grey }}
                                     />
                                 )}
+                                onPress={()=>{navigation.navigate('Archive')}}
                                 label="Archive" />
                             <DrawerItem
                                 icon={() => (
@@ -80,24 +81,29 @@ const DrawerContent = (props) => {
                                         style={{ width: 25, height: 25 }}
                                     />
                                 )}
+                                onPress={()=>{navigation.navigate('Sent')}}
                                 label="Sent" />
                             <DrawerItem icon={() => (
                                 <Image source={icons.person}
                                     style={{ width: 25, height: 25 }}
                                 />
                             )}
+                            onPress={()=>{navigation.navigate('Groups')}}
                                 label="Groups" />
                             <DrawerItem icon={() => (
                                 <Image source={icons.email}
                                     style={{ width: 25, height: 25 }}
                                 />
                             )}
+                            onPress={()=>{navigation.navigate('Deleted')}}
                                 label="Deleted" />
                             <DrawerItem icon={() => (
                                 <Image source={icons.bin}
                                     style={{ width: 25, height: 25, tintColor: COLORS.grey }}
                                 />
+                                
                             )}
+                            onPress={()=>{navigation.navigate('Junk')}}
                                 label="Junk" />
                             <DrawerItem icon={() => (
                                 <Image source={icons.email}

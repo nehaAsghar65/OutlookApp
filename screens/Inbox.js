@@ -10,38 +10,26 @@ import colors from '../constants'
 import axios from 'axios'
 
 const Inbox = ({ navigation }) => {
-  const [data, setData] = useState([])
+  const [threads, setThreads] = useState([])
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://mocki.io/v1/59788af5-daef-4e16-9995-3568c8c02dd2");
-        setData(response.data);
-        // console.log("-------", response.data);
-      }
-      catch (error) {
-
-      }
-    };
-    fetchData();
+   
+    
+  async function fetchData(){
+    const response = await axios.get("http://172.29.64.1:3000/inbox");
+    
+    setThreads(response.data.threads);
+  }
+     fetchData();
   }, []);
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerTitle: () => (<View><Text style={{ color: 'red', fontSize: 18, fontWeight: "bold" }}>New Message</Text>
-  //       <Text style={{ color: 'white', ...FONTS.body5 }}>44</Text></View>),
-  //     //   headerRight: () => <Text style={{color:'white'}}>text</Text>
-  //   })
-  // }, [navigation])
+
 
   return (
-    <SafeAreaView
-
-      style={styles.container}>
-
+    <SafeAreaView style={styles.container}>
       <FlatList
-        data={data}
+        data={threads}
         vertical
         showsHorizontalScrollIndicator={false}
-        keyExtractor={item => `${item.id}`}
+        keyExtractor={(item) => `${item.id}`} 
         renderItem={({ item }) => (
           <MailCard
             containerStyle={{
@@ -52,6 +40,7 @@ const Inbox = ({ navigation }) => {
           />
         )}
       />
+
 
       {/* New mail Button */}
       <TouchableOpacity
@@ -64,8 +53,12 @@ const Inbox = ({ navigation }) => {
         <Text style={styles.composeButtonText}>New Mail</Text>
       </TouchableOpacity>
     </SafeAreaView>
+    // <Text>{JSON.stringify(threads)}</Text>
   );
 };
+
+
+
 
 const styles = StyleSheet.create({
   container: {

@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from "react";
 import { Image, View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
-import { Home, Inbox } from '../screens';
+import { Archive, Deleted, Drafts, Groups, Home, Inbox, Junk, Sent } from '../screens';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MainStackNavigator from './MainStackNavigator';
 import { PickerList, TabIcon, TextButton } from '../components';
@@ -23,11 +23,12 @@ const CustomDrawer = () => {
     <Drawer.Navigator
       drawerContent={props => <DrawerContent {...props} />}
     >
+      
       <Drawer.Screen
         name="Inbox"
         component={MainStackNavigator}
-        options={({ route }) => ({
-          headerShown: route.name === 'Inbox',
+        options={() => ({
+          headerShown: true,
           headerTintColor: 'white',
           headerStyle: {
             height: 90,
@@ -69,7 +70,6 @@ const CustomDrawer = () => {
 
                 }}
                 labelStyle={{
-                  // color: COLORS.dark,
                   ...FONTS.h5
                 }}
                 onPress={() => {
@@ -82,7 +82,7 @@ const CustomDrawer = () => {
             </View>
           </View>),
           headerRight: () => (
-            <SafeAreaView style={{ flex: 1, position: 'absolute' }}>
+            <SafeAreaView style={{ flex: 1, position: 'absolute' ,padding:10}}>
               <TouchableOpacity style={{ justifyContent: 'flex-end', paddingHorizontal: 30, paddingBottom: 8, flexDirection: 'row' }}
                 onPress={() => { navigation.navigate('Search') }}>
                 <Image
@@ -92,6 +92,7 @@ const CustomDrawer = () => {
               <TextButton
                 label={filterStatus}
                 contentContainerStyle={{
+                  position:'fixed',
                   marginTop: 20,
                   height: 25,
                   width: 'auto',
@@ -113,6 +114,60 @@ const CustomDrawer = () => {
             icon={icons.email} />
         })}
       />
+      <Drawer.Screen
+      name='Drafts'
+      component={Drafts}
+      options={{
+        headerShown: true,
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: COLORS.primary }
+
+    }}/>
+      <Drawer.Screen
+      name='Archive'
+      component={Archive}
+      options={{
+        headerShown: true,
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: COLORS.primary }
+
+    }}/>
+      <Drawer.Screen
+      name='Sent'
+      component={Sent}
+      options={{
+        headerShown: true,
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: COLORS.primary }
+
+    }}/>
+      <Drawer.Screen
+      name='Groups'
+      component={Groups}
+      options={{
+        headerShown: true,
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: COLORS.primary }
+
+    }}/>
+      <Drawer.Screen
+      name='Deleted'
+      component={Deleted}
+      options={{
+        headerShown: true,
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: COLORS.primary }
+
+    }}/>
+      <Drawer.Screen
+      name='Junk'
+      component={Junk}
+      options={{
+        headerShown: true,
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: COLORS.primary }
+
+    }}/>
     </Drawer.Navigator>
 
   );
@@ -126,3 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
   },
 });
+
+
+
+

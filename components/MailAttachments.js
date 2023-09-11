@@ -112,12 +112,7 @@ const MailAttachments = () => {
                                     style={styles.icon} source={icons.person} />
                                 <Text style={styles.text}>Edit Recipients</Text>
                             </TouchableOpacity>
-                            <IconButton
-
-                                icon={icons.microphone}
-                                iconStyle={{ tintColor: COLORS.grey }}
-                            // onPress={() => setIsVisible(!isVisible)}
-                            />
+                            
 
                         </View>
                     </BottomSheetModal>

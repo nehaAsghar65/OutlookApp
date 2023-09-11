@@ -1,17 +1,27 @@
+
+
+
+
+
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from "react";
 import { Image, View, Text, TouchableOpacity, Alert,StyleSheet } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
-import { Home, LandingScreen, NewMail, MailBody, Login, Signup, Welcome, Mail, Calender, Apps, Feed, Search } from '../screens';
+import { Home, LandingScreen, NewMail, MailBody, Login, Signup, Welcome, Mail, Calender, Apps, Feed, Search, Inbox } from '../screens';
 import TabNavigation from './TabNavigation';
 import { IconButton, PickerList } from '../components';
 import { icons, COLORS, FONTS, SIZES } from '../constants';
 import {showPicker} from '../components/PickerList'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
 const Stack = createStackNavigator();
+
 const MainStackNavigator = () => {
+
+    
     return (
+
         <Stack.Navigator
                 screenOptions={{
                     headerShown: false
@@ -31,14 +41,7 @@ const MainStackNavigator = () => {
                     component={Signup}
                     
                 />
-                <Stack.Screen
-                    name="Home"
-                    component={Home}
-                />
-                {/* <Stack.Screen
-                    name="CustomDrawer"
-                    component={CustomDrawer}
-                /> */}
+                
                 <Stack.Screen
                     name="Inbox"
                     component={TabNavigation}
@@ -98,7 +101,6 @@ const MainStackNavigator = () => {
                                 <TouchableOpacity
                                     onPress={() => setShowPicker(!showPicker)}
                                 >
-                                    {/* {showPicker && <PickerList />} */}
                                     {showPicker && <PickerList showList={showPicker} setShowList={setShowPicker} filterStatus={filterStatus} setFilterStatus={setFilterStatus} />}
 
                                     <Image
@@ -123,8 +125,6 @@ const MainStackNavigator = () => {
                     name="Search"
                     component={Search}
 
-
-
                 />
                 <Stack.Screen
                     name="LandingScreen"
@@ -134,19 +134,7 @@ const MainStackNavigator = () => {
                     name="Mail"
                     component={Mail}
                 />
-                <Stack.Screen
-                    name="Calender"
-                    component={Calender}
-                />
-
-                <Stack.Screen
-                    name="Apps"
-                    component={Apps}
-                />
-                <Stack.Screen
-                    name="Feed"
-                    component={Feed}
-                />
+                
 
 
             </Stack.Navigator>
