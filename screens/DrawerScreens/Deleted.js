@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView ,FlatList} from 'react-native';
 import axios from 'axios';
 import { COLORS, FONTS } from '../../constants';
-import { MailCard } from '../../components';
+import BASE_URL from '../../assets/endPoint';
 // create a component
 const Deleted = () => {
    
@@ -12,7 +12,7 @@ const Deleted = () => {
     const fetchData = async () => {
 
       try {
-        const response = await axios.get("http://172.29.64.1:3000/deleted");
+        const response = await axios.get(`${BASE_URL}/deleted`);
         if(response.data.threads=='')
         {setIsEmpty(true)}
         setThreads(response.data.threads);

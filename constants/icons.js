@@ -29,7 +29,6 @@ const flag=require("../assets/icons/flag.png")
 const unread=require("../assets/icons/unread.png")
 const reply=require("../assets/icons/reply.png")
 const replyall=require("../assets/icons/replyAll.png")
-const forward=require("../assets/icons/forward.png")
 const dots=require("../assets/icons/dots.png")
 const bin=require("../assets/icons/delete.png")
 const archive=require("../assets/icons/archive.png")
@@ -37,8 +36,23 @@ const camera=require("../assets/icons/camera.png")
 const files=require("../assets/icons/files.png")
 const photos=require("../assets/icons/photos.png")
 const microphone=require("../assets/icons/microphone.png")
-
+const mail=require("../assets/icons/mail.png")
+const draft=require("../assets/icons/draft.png")
+const send=require("../assets/icons/send.png")
+const groups=require("../assets/icons/groups.png")
+const history=require("../assets/icons/history.png")
+const junk=require("../assets/icons/junk.png")
+const forward=require("../assets/icons/forward.png")
+const report=require("../assets/icons/report.png")
 export default {
+    report,
+    forward,
+    junk,
+    history,
+    groups,
+    send,
+    draft,
+    mail,
     microphone,
     files,
     photos,

@@ -13,6 +13,7 @@ const IconButton = ({ containerStyle,
         }}
         onPress={onPress}>
             <Image
+            
                 source={icon}
                 resizeMode='contain'
                 style={{
@@ -22,6 +23,7 @@ const IconButton = ({ containerStyle,
                     ...iconStyle
                 }}
             />
+            
         </TouchableOpacity>
     )
 }

@@ -1,41 +1,28 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Animated, Dimensions, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions} from 'react-native';
 import { COLORS, SIZES, FONTS, icons } from '../constants';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import RBSheet from "react-native-raw-bottom-sheet";
 import { RNCamera } from 'react-native-camera'
-import { BottomSheet } from '../screens';
-import IconButton from './IconButton'
+
 // import { Camera } from 'react-native-vision-camera';
 
 const MailAttachments = () => {
     const [cameraPermission, setCameraPermission] = useState(false);
-    const { height } = Dimensions.get('window');
-    const BottomSheetModalRef = useRef(null);
     const [showBottomSheet, setShowBottomSheet] = useState(false);
     const [activeBottomSheet, setActiveBottomSheet] = useState("")
-    const [isRecording, setIsRecording] = useState(false)
+    const refRBSheet2 = useRef();
+    const refRBSheet1 = useRef();
 
 
-    const snapPoints = ["31%"]
 
     function handlePressModal() {
-        BottomSheetModalRef.current?.present();
+        // setActiveBottomSheet("modal1")
+        refRBSheet1.current.open()
     }
     function handlePress() {
-        setActiveBottomSheet("modal2")
-        // BottomSheetModalRef2.current?.present();
-        console.log(activeBottomSheet, '===')
+        // setActiveBottomSheet("modal2")
+        refRBSheet2.current.open()
     }
-    // useEffect(() => {
-    //     getPermissions();
-
-    // }, [])
-    // const getPermissions = async () => {
-    //     const newCameraPermission = await Camera.requestCameraPermission()
-    //     const newMicrophonePermission = await Camera.requestMicrophonePermission()
-    // }
-
-
 
     return (
         <View style={styles.container}>
@@ -78,45 +65,74 @@ const MailAttachments = () => {
                         <Image source={icons.microphone} style={styles.iconStyle} />
                     </TouchableOpacity>
                 </View>
-                {activeBottomSheet == "modal2" && <BottomSheet activeBottomSheet={activeBottomSheet} setActiveBottomSheet={setActiveBottomSheet} />}
-                <BottomSheetModalProvider >
-                    <BottomSheetModal
-                        ref={BottomSheetModalRef}
-                        index={0}
-                        // onChange={handleSheetChange}
-                        snapPoints={snapPoints}
-                        backgroundStyle={{
-                            borderRadius: 40, backgroundColor: COLORS.light, shadowColor: "black",
-                            shadowOffset: {
-                                width: "100%",
-                                height: "100%",
+                  <RBSheet
+                        ref={refRBSheet2}
+                        closeOnDragDown={true}
+                        closeOnPressMask={true}
+                        customStyles={{
+                            container: {
+                                borderTopRightRadius: 20,
+                                borderTopLeftRadius: 20,
+                                height: 130,
                             },
-                            shadowOpacity: -40.53,
-                            shadowRadius: 90.97,
-                            elevation: 10,
-                        }}>
+                            draggableIcon: {
+                                backgroundColor: COLORS.grey,
+                            },
+                        }}
+                    >
                         <View style={styles.contentContainer}>
-                            <TouchableOpacity style={styles.replyForward}>
-                                <Image
-                                    style={styles.icon} source={icons.reply} />
-                                <Text style={styles.text}>Reply</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.replyForward}>
-                                <Image
-                                    style={styles.icon} source={icons.forward} />
-                                <Text style={styles.text}>Forward</Text>
-                            </TouchableOpacity>
-                            <View style={styles.borderBottom} />
-                            <TouchableOpacity style={styles.replyForward}>
-                                <Image
-                                    style={styles.icon} source={icons.person} />
-                                <Text style={styles.text}>Edit Recipients</Text>
-                            </TouchableOpacity>
-                            
+                    <TouchableOpacity style={styles.replyForward}>
+                        <Image
+                            style={styles.icon} source={icons.files} />
+                        <Text style={styles.text}>Choose from files</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.replyForward}>
+                        <Image
+                            style={styles.icon} source={icons.photos} />
+                        <Text style={styles.text}>Choose from photo library</Text>
+                    </TouchableOpacity>
 
-                        </View>
-                    </BottomSheetModal>
-                </BottomSheetModalProvider>
+                </View>
+                    </RBSheet>
+                
+
+               <RBSheet
+                    ref={refRBSheet1}
+                    closeOnDragDown={true}
+                    closeOnPressMask={true}
+
+                    customStyles={{
+                        container: {
+                            borderTopRightRadius: 20,
+                            borderTopLeftRadius: 20,
+                            height: 160
+                        },
+                        draggableIcon: {
+                            backgroundColor: COLORS.grey,
+                        }
+                    }}
+                >
+                    <View style={styles.contentContainer}>
+                        <TouchableOpacity style={styles.replyForward}>
+                            <Image
+                                style={styles.icon} source={icons.reply} />
+                            <Text style={styles.text}>Reply</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.replyForward}>
+                            <Image
+                                style={styles.icon} source={icons.forward} />
+                            <Text style={styles.text}>Forward</Text>
+                        </TouchableOpacity>
+                        <View style={styles.borderBottom} />
+                        <TouchableOpacity style={styles.replyForward}>
+                            <Image
+                                style={styles.icon} source={icons.person} />
+                            <Text style={styles.text}>Edit Recipients</Text>
+                        </TouchableOpacity>
+
+
+                    </View>
+                </RBSheet>
 
             </View>
         </View>
@@ -154,8 +170,8 @@ const styles = StyleSheet.create({
     iconStyle: {
         marginLeft: SIZES.radius,
         tintColor: COLORS.grey,
-        width: 25,
-        height: 25
+        width: 23,
+        height: 23
 
     },
     container: {
@@ -166,9 +182,6 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         elevation: 0,
-        // backgroundColor: 'black',
-        // borderTopColor: "transparent",
-        // height: 100,
         backgroundcolor: 'grey'
     },
     contentContainer: {
@@ -184,7 +197,7 @@ const styles = StyleSheet.create({
         height: 20,
         tintColor: COLORS.grey
     },
-    text: { marginLeft: 10, ...FONTS.body3 }
+    text: { marginLeft: 10, ...FONTS.body3 ,color:COLORS.gray}
 
 });
 

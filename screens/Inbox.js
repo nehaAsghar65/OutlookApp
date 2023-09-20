@@ -3,23 +3,20 @@ import { Text, View, SafeAreaView, StyleSheet, TouchableOpacity, Image } from 'r
 import { COLORS, SIZES, FONTS, icons } from '../constants'
 import { MailCard, TextButton } from '../components'
 import { FlatList } from 'react-native-gesture-handler'
-import { Searchbar } from 'react-native-paper'
-import { useNavigation } from '@react-navigation/native'
-import { dummyData } from '../constants'
 import colors from '../constants'
 import axios from 'axios'
-
+import BASE_URL from '../assets/endPoint'
 const Inbox = ({ navigation }) => {
   const [threads, setThreads] = useState([])
   useEffect(() => {
-   
-    
-  async function fetchData(){
-    const response = await axios.get("http://172.29.64.1:3000/inbox");
-    
-    setThreads(response.data.threads);
-  }
-     fetchData();
+
+
+    async function fetchData() {
+      const response = await axios.get(`${BASE_URL}/inbox`);
+
+      setThreads(response.data.threads);
+    }
+    fetchData();
   }, []);
 
 
@@ -29,17 +26,22 @@ const Inbox = ({ navigation }) => {
         data={threads}
         vertical
         showsHorizontalScrollIndicator={false}
-        keyExtractor={(item) => `${item.id}`} 
+        keyExtractor={(item) => `${item.main_message_id}`}
         renderItem={({ item }) => (
           <MailCard
+            key={item.main_message_id}
             containerStyle={{
               marginHorizontal: 28
             }}
             mailItem={item}
-            onPress={() => { navigation.navigate('MailBody', { item: item }) }}
+            onPress={() => {
+              navigation.navigate('MailBody', { item: item });
+            }}
           />
         )}
       />
+
+
 
 
       {/* New mail Button */}

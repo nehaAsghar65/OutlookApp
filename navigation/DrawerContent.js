@@ -61,8 +61,8 @@ const DrawerContent = (props) => {
                             />
                             <DrawerItem
                                 icon={() => (
-                                    <Image source={icons.email}
-                                        style={{ width: 25, height: 25 }}
+                                    <Image source={icons.draft}
+                                        style={{ width: 25, height: 25 , tintColor: COLORS.grey}}
                                     />
                                 )}
                                 onPress={()=>{navigation.navigate('Drafts')}}
@@ -77,37 +77,37 @@ const DrawerContent = (props) => {
                                 label="Archive" />
                             <DrawerItem
                                 icon={() => (
-                                    <Image source={icons.email}
-                                        style={{ width: 25, height: 25 }}
+                                    <Image source={icons.send}
+                                        style={{ width: 25, height: 25 ,tintColor: COLORS.grey}}
                                     />
                                 )}
                                 onPress={()=>{navigation.navigate('Sent')}}
                                 label="Sent" />
                             <DrawerItem icon={() => (
-                                <Image source={icons.person}
-                                    style={{ width: 25, height: 25 }}
+                                <Image source={icons.groups}
+                                    style={{ width: 25, height: 25 ,tintColor: COLORS.grey}}
                                 />
                             )}
                             onPress={()=>{navigation.navigate('Groups')}}
                                 label="Groups" />
                             <DrawerItem icon={() => (
-                                <Image source={icons.email}
-                                    style={{ width: 25, height: 25 }}
+                                <Image source={icons.bin}
+                                    style={{ width: 25, height: 25 ,tintColor: COLORS.grey}}
                                 />
                             )}
                             onPress={()=>{navigation.navigate('Deleted')}}
                                 label="Deleted" />
                             <DrawerItem icon={() => (
-                                <Image source={icons.bin}
-                                    style={{ width: 25, height: 25, tintColor: COLORS.grey }}
+                                <Image source={icons.junk}
+                                    style={{ width: 25, height: 25,tintColor: COLORS.grey}}
                                 />
                                 
                             )}
                             onPress={()=>{navigation.navigate('Junk')}}
                                 label="Junk" />
                             <DrawerItem icon={() => (
-                                <Image source={icons.email}
-                                    style={{ width: 25, height: 25 }}
+                                <Image source={icons.history}
+                                    style={{ width: 25, height: 25 ,tintColor: COLORS.grey}}
                                 />
                             )}
                                 label="Conversation History" />

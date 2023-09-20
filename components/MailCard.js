@@ -7,19 +7,17 @@ import { colors } from '../constants';
 const MailCard = ({ containerStyle, mailItem, onPress }) => {
     const [initials, setInitials] = useState('')
     const [initialsExist, setInitialsExist] = useState(false)
-    const [formattedDate, setFormattedDate] = useState(''); 
+    const [formattedDate, setFormattedDate] = useState('');
 
 
 
     useEffect(() => {
-        if (mailItem.participants.length != 0)
-        {   
-            console.log('---',mailItem.participants.length)
+        if (mailItem.participants.length != 0) {
             setInitialsExist(true)
             const nameParts = mailItem.participants[0].name.split(' ')
             const firstNameInitial = nameParts[0].charAt(0)
             const lastNameInitial = nameParts[1] ? nameParts[1].charAt(0) : ''
-            setInitials( `${firstNameInitial}${lastNameInitial}`)
+            setInitials(`${firstNameInitial}${lastNameInitial}`)
         }
         if (mailItem.messages[0].dtm) {
             const date = moment(mailItem.messages[0].dtm).format('MMM Do');
@@ -45,7 +43,7 @@ const MailCard = ({ containerStyle, mailItem, onPress }) => {
             }}>
                 {initials && <Text style={styles.initials}>{initials}</Text>}
             </View>
-            
+
             {/* Details */}
             <View style={styles.titleContainer}>
 
@@ -54,7 +52,7 @@ const MailCard = ({ containerStyle, mailItem, onPress }) => {
 
 
                 }}>
-                    {initialsExist && <Text
+                    {initialsExist ? (<Text
                         ellipsizeMode='tail' numberOfLines={1}
                         style={{
 
@@ -62,7 +60,11 @@ const MailCard = ({ containerStyle, mailItem, onPress }) => {
                             ...styles.title
                         }}
                     >{mailItem.participants[0].name}
-                    </Text>}
+                    </Text>) : (<Text style={{
+
+                        ...FONTS.body3,
+                        ...styles.title
+                    }}>No Recipient</Text>)}
 
 
                     <Text style={{

@@ -2,17 +2,12 @@ import React, { Component, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Animated, Dimensions, ScrollView } from 'react-native';
 import { COLORS, SIZES, FONTS, icons } from '../constants';
 import FormInputs from './FormInputs';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-
+import RBSheet from "react-native-raw-bottom-sheet";
 const ReplyFooter = () => {
   const [reply, setReply] = useState('');
-  const { height } = Dimensions.get('window');
-  const BottomSheetModalRef = useRef(null);
-  const snapPoints = ["50%"]
+  const refRBSheet = useRef();
 
-  function handlePressModal() {
-    BottomSheetModalRef.current?.present();
-  }
+
 
   return (
     <View style={styles.container}>
@@ -24,14 +19,12 @@ const ReplyFooter = () => {
             backgroundColor: COLORS.primary,
           }}
           placeHolder="Reply"
-          // defaultValue={reply}
-
+          value={reply}
           onChange={(text) => setReply(text)}
-
           prependComponent={
 
             <TouchableOpacity
-              onPress={handlePressModal}
+              onPress={() => refRBSheet.current.open()}
               style={{ flexDirection: 'row', paddingHorizontal: SIZES.radius }}>
               <Image source={icons.reply} style={styles.iconStyle} />
               <Image source={icons.arrow_down} style={styles.iconStyle} />
@@ -41,23 +34,23 @@ const ReplyFooter = () => {
         />
       </View>
 
-      <BottomSheetModalProvider >
-        <BottomSheetModal
-          ref={BottomSheetModalRef}
-          index={0}
-          snapPoints={snapPoints}
-          backgroundStyle={{
-            borderRadius: 40, backgroundColor: COLORS.light, shadowColor: "#black",
-            shadowOffset: {
-              width: "100%",
-              height: "100%",
-            },
-            shadowOpacity: -40.53,
-            shadowRadius: 90.97,
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={true}
 
-            elevation: 10,
-          }}>
-          <View style={styles.contentContainer}>
+        customStyles={{
+          container: {
+            borderTopRightRadius: 20,
+            borderTopLeftRadius: 20,
+            height: 180
+          },
+          draggableIcon: {
+            backgroundColor: COLORS.grey,
+          }
+        }}
+      >
+        <View style={styles.contentContainer}>
             <TouchableOpacity style={styles.replyForward}>
               <Image
                 style={styles.icon} source={icons.reply} />
@@ -76,8 +69,7 @@ const ReplyFooter = () => {
             </TouchableOpacity>
 
           </View>
-        </BottomSheetModal>
-      </BottomSheetModalProvider>
+      </RBSheet>
       {/* </View> */}
     </View >
   );
@@ -93,16 +85,11 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderTopWidth: 0.5,
     borderTopColor: COLORS.gray,
-    // flexDirection: 'row',
-    // justifyContent: 'flex-start',
-    // alignItems: 'center',
+
     backgroundColor: COLORS.light,
     marginTop: '67%',
-    // left: 0,
-    // right: 0,
     bottom: 0,
-    // width: '100%',
-    // height: '10%'
+
 
   },
   borderBottom: {
@@ -118,16 +105,13 @@ const styles = StyleSheet.create({
 
   },
   container: {
-
     flex: 1,
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
     elevation: 0,
-    // backgroundColor: 'black',
-    // borderTopColor: "transparent",
-    // height: 100,
+
     backgroundcolor: 'grey'
   },
   contentContainer: {

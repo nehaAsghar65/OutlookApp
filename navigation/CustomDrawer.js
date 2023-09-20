@@ -9,11 +9,15 @@ import { icons, COLORS, FONTS, SIZES } from '../constants';
 import { useNavigation } from '@react-navigation/native';
 import TabNavigation from './TabNavigation';
 import DrawerContent from './DrawerContent';
+import SwitchSelector from "react-native-switch-selector";
 
 const Drawer = createDrawerNavigator();
-
+const toggleOptions = [
+  { label: "Focused", value: "f" },
+  { label: "Others", value: "o" }
+];
 const CustomDrawer = () => {
-  const [focused, setFocused] = useState(false)
+  const [focused, setFocused] = useState(true)
   const [others, setOthers] = useState(false)
   const [showPicker, setShowPicker] = useState(false);
   const [filterStatus, setFilterStatus] = useState("Filter")
@@ -23,7 +27,7 @@ const CustomDrawer = () => {
     <Drawer.Navigator
       drawerContent={props => <DrawerContent {...props} />}
     >
-      
+
       <Drawer.Screen
         name="Inbox"
         component={MainStackNavigator}
@@ -37,11 +41,12 @@ const CustomDrawer = () => {
           headerTitle: () => (<View >
             <Text style={{ marginLeft: 7, fontSize: 21, fontWeight: "bold", color: COLORS.light }}>Inbox</Text>
             <View style={{
+              backgroundColor:'blue',
               marginTop: 20,
               flexDirection: "row",
               justifyContent: 'space-between',
             }}>
-              <TextButton
+              {/* <TextButton
                 label="Focused"
                 focused={focused}
                 contentContainerStyle={{
@@ -76,13 +81,14 @@ const CustomDrawer = () => {
                   setOthers(!others)
                   setFocused(false)
                 }}
-              />
-
+              /> */}
+             
 
             </View>
+            
           </View>),
           headerRight: () => (
-            <SafeAreaView style={{ flex: 1, position: 'absolute' ,padding:10}}>
+            <SafeAreaView style={{ flex: 1, position: 'absolute', padding: 10 }}>
               <TouchableOpacity style={{ justifyContent: 'flex-end', paddingHorizontal: 30, paddingBottom: 8, flexDirection: 'row' }}
                 onPress={() => { navigation.navigate('Search') }}>
                 <Image
@@ -92,7 +98,7 @@ const CustomDrawer = () => {
               <TextButton
                 label={filterStatus}
                 contentContainerStyle={{
-                  position:'fixed',
+                  position: 'fixed',
                   marginTop: 20,
                   height: 25,
                   width: 'auto',
@@ -115,59 +121,58 @@ const CustomDrawer = () => {
         })}
       />
       <Drawer.Screen
-      name='Drafts'
-      component={Drafts}
-      options={{
-        headerShown: true,
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: COLORS.primary }
-
-    }}/>
+        name='Drafts'
+        component={Drafts}
+        options={{
+          headerShown: true,
+          headerTintColor: "white",
+          headerStyle: { backgroundColor: COLORS.primary }
+        }} />
       <Drawer.Screen
-      name='Archive'
-      component={Archive}
-      options={{
-        headerShown: true,
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: COLORS.primary }
+        name='Archive'
+        component={Archive}
+        options={{
+          headerShown: true,
+          headerTintColor: "white",
+          headerStyle: { backgroundColor: COLORS.primary }
 
-    }}/>
+        }} />
       <Drawer.Screen
-      name='Sent'
-      component={Sent}
-      options={{
-        headerShown: true,
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: COLORS.primary }
+        name='Sent'
+        component={Sent}
+        options={{
+          headerShown: true,
+          headerTintColor: "white",
+          headerStyle: { backgroundColor: COLORS.primary }
 
-    }}/>
+        }} />
       <Drawer.Screen
-      name='Groups'
-      component={Groups}
-      options={{
-        headerShown: true,
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: COLORS.primary }
+        name='Groups'
+        component={Groups}
+        options={{
+          headerShown: true,
+          headerTintColor: "white",
+          headerStyle: { backgroundColor: COLORS.primary }
 
-    }}/>
+        }} />
       <Drawer.Screen
-      name='Deleted'
-      component={Deleted}
-      options={{
-        headerShown: true,
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: COLORS.primary }
+        name='Deleted'
+        component={Deleted}
+        options={{
+          headerShown: true,
+          headerTintColor: "white",
+          headerStyle: { backgroundColor: COLORS.primary }
 
-    }}/>
+        }} />
       <Drawer.Screen
-      name='Junk'
-      component={Junk}
-      options={{
-        headerShown: true,
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: COLORS.primary }
+        name='Junk'
+        component={Junk}
+        options={{
+          headerShown: true,
+          headerTintColor: "white",
+          headerStyle: { backgroundColor: COLORS.primary }
 
-    }}/>
+        }} />
     </Drawer.Navigator>
 
   );

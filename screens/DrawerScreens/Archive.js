@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, SafeAreaView ,FlatList} from 'react-native';
 import axios from 'axios';
 import { COLORS } from '../../constants';
 import { MailCard } from '../../components';
+import BASE_URL from '../../assets/endPoint';
 // create a component
 const Archive = ({navigation}) => {
     const [threads, setThreads] = useState([])
@@ -11,7 +12,7 @@ const Archive = ({navigation}) => {
     const fetchData = async () => {
 
       try {
-        const response = await axios.get("http://172.29.64.1:3000/archive");
+        const response = await axios.get(`${BASE_URL}/archive`);
         setThreads(response.data.threads);
         console.log("-------", response.data);
       }

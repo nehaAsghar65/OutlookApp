@@ -2,10 +2,9 @@ import React, { useRef } from 'react';
 import { View, Text, StyleSheet, TouchableWithoutFeedback, Modal, FlatList, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { COLORS, FONTS, SIZES } from '../constants';
-import dummyData from '../constants';
 import icons from '../constants/icons';
 import IconButton from './IconButton';
-
+import dummyData from '../constants';
 const PickerList = ({ showList, setShowList, filterStatus, setFilterStatus }) => {
     // const [selectedValue, setSelectedValue] = useState("All messages");
     const filterItems = [{
@@ -38,7 +37,6 @@ const PickerList = ({ showList, setShowList, filterStatus, setFilterStatus }) =>
         icon: icons.mention
     }]
     const modalRef = useRef(null);
-
     const closeModal = () => {
         setShowList(false);
     };
@@ -49,7 +47,6 @@ const PickerList = ({ showList, setShowList, filterStatus, setFilterStatus }) =>
         }
     };
 
-    // console.log(filterItems)
     return (
 
         <Modal
@@ -57,7 +54,6 @@ const PickerList = ({ showList, setShowList, filterStatus, setFilterStatus }) =>
             transparent={true}
             visible={showList}
             onRequestClose={() => {
-                //   Alert.alert('Modal has been closed.');
                 setShowList(!showList);
             }}>
             <TouchableWithoutFeedback onPress={handleOverlayPress}>
@@ -75,8 +71,8 @@ const PickerList = ({ showList, setShowList, filterStatus, setFilterStatus }) =>
                                 <Image
                                     style={{
                                         width: 25,
-                                        height: 25,
-                                        tintColor: COLORS.gray,
+                                        height: 20,
+                                        tintColor: COLORS.grey,
                                         marginRight: 10
                                     }}
                                     source={item.icon}

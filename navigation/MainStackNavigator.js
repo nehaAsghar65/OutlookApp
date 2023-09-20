@@ -1,8 +1,3 @@
-
-
-
-
-
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from "react";
 import { Image, View, Text, TouchableOpacity, Alert,StyleSheet } from 'react-native';
@@ -11,14 +6,13 @@ import { Home, LandingScreen, NewMail, MailBody, Login, Signup, Welcome, Mail, C
 import TabNavigation from './TabNavigation';
 import { IconButton, PickerList } from '../components';
 import { icons, COLORS, FONTS, SIZES } from '../constants';
-import {showPicker} from '../components/PickerList'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
 const Stack = createStackNavigator();
 
 const MainStackNavigator = () => {
-
+    const [showPicker, setShowPicker] = useState(false);
+    const [filterStatus, setFilterStatus] = useState("Filter")
     
     return (
 

@@ -4,6 +4,7 @@ import { View, Text, StyleSheet ,SafeAreaView,FlatList ,TouchableOpacity} from '
 import axios from 'axios';
 import { MailCard } from '../../components';
 import { COLORS,FONTS,icons } from '../../constants';
+import BASE_URL from '../../assets/endPoint';
 const Drafts = ({navigation}) => {
     const [isEmpty, setIsEmpty]=useState(false)
     const [threads, setThreads] = useState([])
@@ -11,7 +12,7 @@ const Drafts = ({navigation}) => {
     const fetchData = async () => {
 
       try {
-        const response = await axios.get("http://172.29.64.1:3000/drafts");
+        const response = await axios.get(`${BASE_URL}/drafts`);
         if(response.data.threads=='')
         {setIsEmpty(true)}
         setThreads(response.data.threads);
