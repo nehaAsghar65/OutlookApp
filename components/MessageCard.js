@@ -107,9 +107,9 @@ const MessageCard = ({ containerStyle, message, onPress }) => {
                             <TouchableOpacity
                                 key={index}
                                 style={styles.item}
-                                onPress={()=>{}}
+                                onPress={() => { }}
                             >
-                              
+
                                 <Image
                                     style={{
                                         width: 25,
@@ -119,7 +119,7 @@ const MessageCard = ({ containerStyle, message, onPress }) => {
                                     }}
                                     source={item.icon}
                                 />
-                                
+
                                 <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>{item.title}</Text>
                             </TouchableOpacity>
                         ))}

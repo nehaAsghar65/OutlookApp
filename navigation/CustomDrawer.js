@@ -7,15 +7,9 @@ import MainStackNavigator from './MainStackNavigator';
 import { PickerList, TabIcon, TextButton } from '../components';
 import { icons, COLORS, FONTS, SIZES } from '../constants';
 import { useNavigation } from '@react-navigation/native';
-import TabNavigation from './TabNavigation';
 import DrawerContent from './DrawerContent';
-import SwitchSelector from "react-native-switch-selector";
 
 const Drawer = createDrawerNavigator();
-const toggleOptions = [
-  { label: "Focused", value: "f" },
-  { label: "Others", value: "o" }
-];
 const CustomDrawer = () => {
   const [focused, setFocused] = useState(true)
   const [others, setOthers] = useState(false)
@@ -38,15 +32,15 @@ const CustomDrawer = () => {
             height: 90,
             backgroundColor: COLORS.primary,
           },
-          headerTitle: () => (<View >
+          headerTitle: () => (
+            <View >
             <Text style={{ marginLeft: 7, fontSize: 21, fontWeight: "bold", color: COLORS.light }}>Inbox</Text>
             <View style={{
-              backgroundColor:'blue',
               marginTop: 20,
               flexDirection: "row",
               justifyContent: 'space-between',
             }}>
-              {/* <TextButton
+              <TextButton
                 label="Focused"
                 focused={focused}
                 contentContainerStyle={{
@@ -81,11 +75,11 @@ const CustomDrawer = () => {
                   setOthers(!others)
                   setFocused(false)
                 }}
-              /> */}
-             
+              />
+
 
             </View>
-            
+
           </View>),
           headerRight: () => (
             <SafeAreaView style={{ flex: 1, position: 'absolute', padding: 10 }}>

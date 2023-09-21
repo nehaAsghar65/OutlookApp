@@ -261,6 +261,7 @@ const AuthContainer = ({ mode, setMode }) => {
                                 <Image
                                     source={icons.mail}
                                     style={{
+                                        color:COLORS.grey,
                                         width: 25,
                                         height: 25,
                                         marginRight: SIZES.base
@@ -445,7 +446,8 @@ const styles = StyleSheet.create({
     emailField: {
         width: 25,
         height: 25,
-        marginRight: SIZES.base
+        marginRight: SIZES.base,
+        tintColor:COLORS.grey
     },
 
 })

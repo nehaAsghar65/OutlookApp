@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import {StyleSheet, SafeAreaView } from 'react-native';
 import { COLORS, FONTS, SIZES, icons } from '../constants';
 import { MessageCard, ReplyFooter } from '../components';
 import { FlatList } from 'react-native-gesture-handler';
 const MailBody = ({ route }) => {
     const { item } = route.params
     return (
-        <ScrollView style={{flex: 1, backgroundColor: COLORS.lightGrey,height:'100%' }}>
+        <SafeAreaView style={{flex: 1, backgroundColor: COLORS.lightGrey,height:'100%' }}>
 
             <FlatList
                 data={item.messages}
@@ -22,9 +22,10 @@ const MailBody = ({ route }) => {
                         }}
                         message={item} />
                 )}
+                
             />
             <ReplyFooter />
-        </ScrollView>
+        </SafeAreaView>
     );
 }
 
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '30%',
         backgroundColor: COLORS.light,
-        borderTopColor: 'black',
+        borderTopColor: COLORS.gray,
 
     },
 
