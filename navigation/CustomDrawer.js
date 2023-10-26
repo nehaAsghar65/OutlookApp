@@ -5,7 +5,7 @@ import { Archive, Deleted, Drafts, Groups, Home, Inbox, Junk, Sent } from '../sc
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MainStackNavigator from './MainStackNavigator';
 import { PickerList, TabIcon, TextButton } from '../components';
-import { icons, COLORS, FONTS, SIZES } from '../constants';
+import { icons, COLORS, FONTS, SIZES ,dummyData} from '../constants';
 import { useNavigation } from '@react-navigation/native';
 import DrawerContent from './DrawerContent';
 
@@ -105,7 +105,12 @@ const CustomDrawer = () => {
                 }}
                 onPress={() => setShowPicker(!showPicker)}
               />
-              {showPicker && <PickerList showList={showPicker} setShowList={setShowPicker} filterStatus={filterStatus} setFilterStatus={setFilterStatus} />}
+              {showPicker && 
+              <PickerList showList={showPicker} 
+              setShowList={setShowPicker} 
+              filterStatus={filterStatus} 
+              setFilterStatus={setFilterStatus} 
+              data={dummyData.filterItems}/>}
 
             </SafeAreaView>
 

@@ -1,41 +1,8 @@
 import React, { useRef } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback, Modal, FlatList, TouchableOpacity, Image, SafeAreaView } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Modal, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { COLORS, FONTS, SIZES } from '../constants';
-import icons from '../constants/icons';
-import IconButton from './IconButton';
-import dummyData from '../constants';
-const PickerList = ({ showList, setShowList, filterStatus, setFilterStatus }) => {
-    // const [selectedValue, setSelectedValue] = useState("All messages");
-    const filterItems = [{
-        title: "All messages",
-        icon: icons.email
-    },
-    {
-        title: "Unread",
-        icon: icons.unread
-    },
-    {
-        title: "Flagged",
-        icon: icons.flag
-    },
+const PickerList = ({ showList, setShowList, setFilterStatus ,data}) => {
 
-    {
-        title: "Pinned",
-        icon: icons.pinned
-    },
-    {
-        title: "To me",
-        icon: icons.unread
-    },
-    {
-        title: "Has attachments",
-        icon: icons.attachment
-    },
-    {
-        title: "Mentions me",
-        icon: icons.mention
-    }]
     const modalRef = useRef(null);
     const closeModal = () => {
         setShowList(false);
@@ -59,7 +26,7 @@ const PickerList = ({ showList, setShowList, filterStatus, setFilterStatus }) =>
             <TouchableWithoutFeedback onPress={handleOverlayPress}>
                 <View ref={modalRef} style={styles.modalOverlay}>
                     <View style={styles.modalView}>
-                        {filterItems.map((item, index) => (
+                        {data.map((item, index) => (
                             <TouchableOpacity
                                 key={index}
                                 style={styles.item}
@@ -79,7 +46,7 @@ const PickerList = ({ showList, setShowList, filterStatus, setFilterStatus }) =>
                                 />
                                 <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>{item.title}</Text>
                             </TouchableOpacity>
-                        ))}
+                        ))}                                                                                                                                                                   
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -120,10 +87,11 @@ const styles = StyleSheet.create({
     modalView: {
         right: 10,
         top: 50,
-        width: 170,
-        height: 270,
+        width: 'auto',
+        height: 'auto',
         position: 'absolute',
         margin: 20,
+        paddingBottom:12,
         borderRadius:10,
         backgroundColor: 'white',
         shadowColor: '#000',

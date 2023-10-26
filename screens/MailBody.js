@@ -1,31 +1,65 @@
-import React from 'react';
-import {StyleSheet, SafeAreaView } from 'react-native';
-import { COLORS, FONTS, SIZES, icons } from '../constants';
-import { MessageCard, ReplyFooter } from '../components';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { COLORS, FONTS, SIZES, icons, dummyData } from '../constants';
+import { MessageCard, ReplyFooter, PickerList, IconButton } from '../components';
+import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
-const MailBody = ({ route }) => {
-    const { item } = route.params
-    return (
-        <SafeAreaView style={{flex: 1, backgroundColor: COLORS.lightGrey,height:'100%' }}>
+import { useAppContext } from '../context/AppContext';
 
-            <FlatList
-                data={item.messages}
-                keyboardDismissMode='on-drag'
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item) => `${item.message_id}`}
-                renderItem={({ item }) => (
-                  
-                    <MessageCard
-                    key={item.message_id}
-                        containerStyle={{
-                            marginHorizontal: SIZES.base
-                        }}
-                        message={item} />
+
+
+const MailBody = ({ route }) => {
+    // const [reRenderFlag, setReRenderFlag] = useState(false)
+    const navigation = useNavigation()
+    const { allthreads, thread, item } = route.params
+    const { reRender } = useAppContext();
+    // useEffect(() => {
+    //     // Check if there are no messages and set the reRenderFlag accordingly
+    //     if (item.messages.length === 0) {
+    //         return <Text>no msg to show</Text>
+
+    //     }
+    // }, []);
+    // if (item.messages.length === 0) {
+    //     return <Text>No msg to show</Text>
+    // }
+    return (
+        <View style={{ flex: 1, backgroundColor: COLORS.lightGrey }}>
+            <Text style={{ fontSize: 0 }}>{reRender}</Text>
+            <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightGrey, marginBottom: 50 }}>
+                {reRender || item.messages.length !== 0 ? (<FlatList
+                    data={item.messages}
+                    keyboardDismissMode='on-drag'
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item) => `${item.message_id}`}
+                    renderItem={({ item }) => (
+
+                        <MessageCard
+                            key={item.message_id}
+                            containerStyle={{
+                                marginHorizontal: SIZES.base
+                            }}
+                            message={item}
+                            thread={thread}
+
+                        />
+
+
+                    )}
+
+                />) : (
+
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ ...FONTS.h2 }}>No message to show</Text>
+                    </View>
                 )}
-                
-            />
+
+
+
+            </SafeAreaView>
+
             <ReplyFooter />
-        </SafeAreaView>
+        </View >
     );
 }
 
@@ -49,7 +83,7 @@ const styles = StyleSheet.create({
 
     },
 
-   
+
     scrollView: {
         paddingTop: 0,
         paddingHorizontal: 22

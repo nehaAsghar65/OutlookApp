@@ -44,7 +44,22 @@ const history=require("../assets/icons/history.png")
 const junk=require("../assets/icons/junk.png")
 const forward=require("../assets/icons/forward.png")
 const report=require("../assets/icons/report.png")
+const forwardAsAttachment=require("../assets/icons/forwardasattachment.png")
+const snooze=require("../assets/icons/snooze.png")
+const createtask=require("../assets/icons/createtask.png")
+const verticleDots=require("../assets/icons/verticleDots.png")
+const doc=require("../assets/icons/doc.png")
+const xlsx=require("../assets/icons/xlsx.png")
+const pdf=require("../assets/icons/pdf.png")
+const png=require("../assets/icons/png.png")
+
+
 export default {
+    doc,xlsx,pdf,png,
+    verticleDots,
+    createtask,
+    snooze,
+    forwardAsAttachment,
     report,
     forward,
     junk,

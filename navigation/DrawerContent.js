@@ -56,6 +56,7 @@ const DrawerContent = (props) => {
                                         style={{ width: 25, height: 25 }}
                                     />
                                 )}
+                                onPress={()=>{navigation.navigate('Inbox')}}
                                 label="Inbox"
 
                             />

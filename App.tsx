@@ -7,6 +7,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Home, LandingScreen, NewMail, MailBody, Login, Signup, Welcome, Mail, Calender, Apps, Feed, Search, Inbox } from './screens'
 import CustomDrawer from "./navigation/CustomDrawer";
 import messaging from '@react-native-firebase/messaging'
+import { NativeBaseProvider } from 'native-base';
+import { AppProvider } from './context/AppContext';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -34,12 +36,16 @@ const App = () => {
     }, [])
     
     return (
+        <AppProvider>
+        <NativeBaseProvider>
         <NavigationContainer >
             <CustomDrawer/>
             {/* <Drawer.Navigator initialRouteName="Welcome" drawerContent={props => <DrawerContent {...props} />}>
                 <Drawer.Screen name="Inbox" component={TabNavigation} />
             </Drawer.Navigator> */}
         </NavigationContainer>
+        </NativeBaseProvider>
+        </AppProvider>
     )
 }
 

@@ -8,5 +8,7 @@ import PickerList from "./PickerList";
 import ReplyFooter from "./ReplyFooter";
 import MailAttachments from "./MailAttachments";
 import MessageCard from "./MessageCard";
+import AttachmentContainer from "./AttachmentContainer";
+import MailOptions from "./MailOptions";
 
-export {MessageCard,MailAttachments,ReplyFooter,MailCard,TextButton,AuthContainer,FormInputs,IconButton,TabIcon,PickerList}
+export {MailOptions,MessageCard,AttachmentContainer,MailAttachments,ReplyFooter,MailCard,TextButton,AuthContainer,FormInputs,IconButton,TabIcon,PickerList}

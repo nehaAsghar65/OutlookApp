@@ -27,7 +27,6 @@ const Deleted = () => {
   }, []);
     return (
         <SafeAreaView style={styles.container}>
-            {!isEmpty && <Text>Deleted</Text>}
             {isEmpty && <View style={{justifyContent:'center',alignItems:'center',}}><Text style={{...FONTS.h2}}>No deleted items</Text></View>}
         </SafeAreaView>
 

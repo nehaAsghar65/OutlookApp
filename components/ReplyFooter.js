@@ -1,26 +1,22 @@
 import React, { Component, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Animated, Dimensions, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput,TouchableOpacity, Image} from 'react-native';
 import { COLORS, SIZES, FONTS, icons } from '../constants';
 import FormInputs from './FormInputs';
 import RBSheet from "react-native-raw-bottom-sheet";
 const ReplyFooter = () => {
   const [reply, setReply] = useState('');
   const refRBSheet = useRef();
-
-
-
   return (
     <View style={styles.container}>
-      {/* <View style={styles.container}> */}
       <View style={styles.footer}>
         <FormInputs
           containerStyle={{
+            paddingTop:8,
             borderRadius: SIZES.radius,
-            backgroundColor: COLORS.primary,
           }}
           placeHolder="Reply"
-          value={reply}
-          onChange={(text) => setReply(text)}
+          value={reply.toString()}
+          onChangeText={(text) => setReply(text)}
           prependComponent={
 
             <TouchableOpacity
@@ -28,6 +24,13 @@ const ReplyFooter = () => {
               style={{ flexDirection: 'row', paddingHorizontal: SIZES.radius }}>
               <Image source={icons.reply} style={styles.iconStyle} />
               <Image source={icons.arrow_down} style={styles.iconStyle} />
+            </TouchableOpacity>
+          }
+          appendComponent={
+            <TouchableOpacity
+            disabled={!reply}
+              style={{ flexDirection: 'row', paddingHorizontal: SIZES.radius }}>
+              <Image source={icons.send} style={styles.iconStyle} />
             </TouchableOpacity>
           }
 
@@ -70,13 +73,10 @@ const ReplyFooter = () => {
 
           </View>
       </RBSheet>
-      {/* </View> */}
+     
     </View >
   );
 };
-
-
-
 export default ReplyFooter;
 
 
@@ -85,11 +85,9 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderTopWidth: 0.5,
     borderTopColor: COLORS.gray,
-
     backgroundColor: COLORS.light,
     marginTop: '67%',
     bottom: 0,
-
 
   },
   borderBottom: {
@@ -111,8 +109,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     elevation: 0,
-
-    backgroundcolor: 'grey'
+    // backgroundcolor: 'grey'
   },
   contentContainer: {
     paddingHorizontal: 15,

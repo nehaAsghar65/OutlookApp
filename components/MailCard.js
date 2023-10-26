@@ -1,15 +1,13 @@
 
-import React, { Component, useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { SIZES, COLORS, FONTS, icons, images } from '../constants';
 import moment from 'moment'
 import { colors } from '../constants';
-const MailCard = ({ containerStyle, mailItem, onPress }) => {
+const MailCard = ({ containerStyle, mailItem,onPress }) => {
     const [initials, setInitials] = useState('')
     const [initialsExist, setInitialsExist] = useState(false)
     const [formattedDate, setFormattedDate] = useState('');
-
-
 
     useEffect(() => {
         if (mailItem.participants.length != 0) {
@@ -39,7 +37,7 @@ const MailCard = ({ containerStyle, mailItem, onPress }) => {
                 width: 50,
                 height: 50,
                 borderRadius: 70 / 2,
-                backgroundColor: colors.carolinaBlue
+                backgroundColor: colors.chineseVoilet
             }}>
                 {initials && <Text style={styles.initials}>{initials}</Text>}
             </View>

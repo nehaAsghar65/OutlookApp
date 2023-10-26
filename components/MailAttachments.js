@@ -1,54 +1,83 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Linking, Image } from 'react-native';
 import { COLORS, SIZES, FONTS, icons } from '../constants';
 import RBSheet from "react-native-raw-bottom-sheet";
-import { RNCamera } from 'react-native-camera'
+import DocumentPicker from 'react-native-document-picker';
+import {useCameraDevices, Camera } from 'react-native-vision-camera';
 
-// import { Camera } from 'react-native-vision-camera';
-
-const MailAttachments = () => {
-    const [cameraPermission, setCameraPermission] = useState(false);
-    const [showBottomSheet, setShowBottomSheet] = useState(false);
-    const [activeBottomSheet, setActiveBottomSheet] = useState("")
+const MailAttachments = ({ onDataReceived }) => {
+    const [fileResponse, setFileResponse] = useState([]);
+    const [showCamera,setShowCamera]=useState(false)
     const refRBSheet2 = useRef();
     const refRBSheet1 = useRef();
+    // const devices = 
+    const device=useCameraDevices('back')
+    const camera = useRef(null);
 
+    useEffect(() => {
+        async function getPermission(){
+            const permission = await Camera.requestCameraPermission()
+            console.log("---",permission)
+            if(permission=='denied') await Linking.openSettings()
+
+        }
+        getPermission()
+
+    }, [])
 
 
     function handlePressModal() {
-        // setActiveBottomSheet("modal1")
         refRBSheet1.current.open()
     }
     function handlePress() {
-        // setActiveBottomSheet("modal2")
         refRBSheet2.current.open()
     }
+    
+    const handleDocumentSelection = useCallback(async () => {
+        try {
+            const response = await DocumentPicker.pick({
+                type: [DocumentPicker.types.pdf, DocumentPicker.types.images],
+                presentationStyle: 'fullScreen',
+                allowMultiSelection: true,
+            });
+            setFileResponse(response);
+            onDataReceived(response);
 
+        } catch (err) {
+            console.warn(err);
+        }
+
+    }, []);
+
+    if (!device) {
+        return (
+            <View >
+                <Text>Camera not available.</Text>
+            </View>
+        );
+    }
+   
+    
+   
     return (
         <View style={styles.container}>
 
+           {showCamera ? (<>
+           <Camera
+           ref={camera}
+           style={StyleSheet.absoluteFill}
+           device={device}
+           isActive={showCamera}
+           photo={true}/>
 
-            {cameraPermission && (
-                <RNCamera
+           </>):(<>
+           </>)
 
-                    ref={ref => {
-                        this.camera = ref
-                    }}
-
-                    captureAudio={false}
-                    style={{ flex: 1, alignItems: 'flex-start' }}
-                    type={RNCamera.Constants.Type.back}
-                    androidCameraPermissionOptions={{
-                        title: 'Permission to use camera',
-                        message: 'We need your permission to use your camera',
-                        buttonPositive: 'Ok',
-                        buttonNegative: 'Cancel',
-                    }}
-                />
-            )}
+           }
 
 
             <View style={styles.container}>
+
                 <View style={styles.footer}>
                     <TouchableOpacity
                         onPress={handlePressModal}
@@ -58,45 +87,47 @@ const MailAttachments = () => {
                     <TouchableOpacity onPress={handlePress}>
                         <Image source={icons.attachment} style={styles.iconStyle} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setCameraPermission(true)}>
+                    <TouchableOpacity onPress={() => setShowCamera(true)}>
                         <Image source={icons.camera} style={styles.iconStyle} />
                     </TouchableOpacity>
-                    <TouchableOpacity >
+                    <TouchableOpacity  >
                         <Image source={icons.microphone} style={styles.iconStyle} />
                     </TouchableOpacity>
                 </View>
-                  <RBSheet
-                        ref={refRBSheet2}
-                        closeOnDragDown={true}
-                        closeOnPressMask={true}
-                        customStyles={{
-                            container: {
-                                borderTopRightRadius: 20,
-                                borderTopLeftRadius: 20,
-                                height: 130,
-                            },
-                            draggableIcon: {
-                                backgroundColor: COLORS.grey,
-                            },
-                        }}
-                    >
-                        <View style={styles.contentContainer}>
-                    <TouchableOpacity style={styles.replyForward}>
-                        <Image
-                            style={styles.icon} source={icons.files} />
-                        <Text style={styles.text}>Choose from files</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.replyForward}>
-                        <Image
-                            style={styles.icon} source={icons.photos} />
-                        <Text style={styles.text}>Choose from photo library</Text>
-                    </TouchableOpacity>
+                <RBSheet
+                    ref={refRBSheet2}
+                    closeOnDragDown={true}
+                    closeOnPressMask={true}
+                    customStyles={{
+                        container: {
+                            borderTopRightRadius: 20,
+                            borderTopLeftRadius: 20,
+                            height: 130,
+                        },
+                        draggableIcon: {
+                            backgroundColor: COLORS.grey,
+                        },
+                    }}
+                >
+                    <View style={styles.contentContainer}>
+                        <TouchableOpacity style={styles.replyForward}
+                            onPress={handleDocumentSelection}>
+                            <Image
+                                style={styles.icon} source={icons.files} />
+                            <Text style={styles.text}>Choose from files</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.replyForward}
+                            onPress={handleDocumentSelection}>
+                            <Image
+                                style={styles.icon} source={icons.photos} />
+                            <Text style={styles.text}>Choose from photo library</Text>
+                        </TouchableOpacity>
 
-                </View>
-                    </RBSheet>
-                
+                    </View>
+                </RBSheet>
 
-               <RBSheet
+
+                <RBSheet
                     ref={refRBSheet1}
                     closeOnDragDown={true}
                     closeOnPressMask={true}
@@ -174,6 +205,12 @@ const styles = StyleSheet.create({
         height: 23
 
     },
+    scontainer: {
+
+        flex: 1,
+       alignItems:'center',
+       justifyContent:'center'
+    },
     container: {
 
         flex: 1,
@@ -197,7 +234,7 @@ const styles = StyleSheet.create({
         height: 20,
         tintColor: COLORS.grey
     },
-    text: { marginLeft: 10, ...FONTS.body3 ,color:COLORS.gray}
+    text: { marginLeft: 10, ...FONTS.body3, color: COLORS.gray }
 
 });
 

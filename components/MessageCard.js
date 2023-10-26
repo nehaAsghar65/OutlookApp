@@ -1,66 +1,67 @@
 //import liraries
 import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Image } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ToastAndroid,Image,TouchableOpacity } from 'react-native';
 import { COLORS, SIZES, FONTS, icons } from '../constants';
-import { Card, Avatar, IconButton, Caption, Provider } from 'react-native-paper';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Card, Avatar, IconButton, Provider } from 'react-native-paper';
 import moment from 'moment';
-import { BottomSheet } from '../components';
+import {dummyData} from '../constants';
 import RBSheet from "react-native-raw-bottom-sheet";
+import AttachmentContainer from './AttachmentContainer'
+import { useToast } from 'native-base';
+import { useAppContext } from '../context/AppContext';
 
-
-
-
-const MessageCard = ({ containerStyle, message, onPress }) => {
+const MessageCard = ({ containerStyle, message ,thread}) => {
+    const { reRender, setReRender } = useAppContext();
     const [showDetails, setShowDetails] = useState(false)
     const [formattedDate, setFormattedDate] = useState('');
-    const [showBottomSheet, setShowBottomSheet] = useState(false);
+    const [attachmentExist,setAttachmentExist]=useState(false)
     const refRBSheet = useRef();
-    const filterItems = [{
-        title: "Report a concern",
-        icon: icons.report
-    },
-    {
-        title: "Marked as read",
-        icon: icons.unread
-    },
-    {
-        title: "Flag",
-        icon: icons.flag
-    },
-
-    {
-        title: "Reply",
-        icon: icons.reply
-    },
-    {
-        title: "Forward",
-        icon: icons.forward
-    },
-    {
-        title: "Forward as attachment",
-        icon: icons.attachment
-    },
-    {
-        title: "Print",
-        icon: icons.mention
-    },
-    {
-        title: "Delete",
-        icon: icons.bin
-    },]
+    const toast =useToast()
+    let inboxData = {
+        messages: [
+          thread
+        ]
+      };
     useEffect(() => {
-        if (message.dtm) {
+        if (message) {
             const date = moment(message.dtm).format('llll');
             setFormattedDate(date);
         }
+        if(message.attachments){
+            setAttachmentExist(!attachmentExist)
+        }
+        
+        
     }, [])
+    const showToast = () => {
+        toast.show({
+            description: "Message Deleted",
+            placement:'bottom',
+            style:{width:400,height:50,borderRadius:10,justifyContent:'center'}
+          })
+      };
+   const handleDelete=()=>{
+    const updatedThreads = inboxData.messages.map((msg) => {
+        if (msg.messages) {
+          msg.messages = msg.messages.filter(
+            (item) => item.message_id !== message.message_id
+          );
+        }
+ 
+      });
+      inboxData={ ...inboxData, threads: updatedThreads };
+      refRBSheet.current.close();
+      showToast()
+      setReRender(!reRender);
+   }
+  
+   
     return (
         <SafeAreaView style={{
             ...styles.container,
             ...containerStyle
         }}>
-            {showBottomSheet && <BottomSheet showBottomSheet={showBottomSheet} onDismiss={() => { setShowBottomSheet(false) }} />}
+          
 
             <View style={{ width: "100%", flexDirection: 'row' }}>
                 <View style={{ width: "90%" }}>
@@ -78,8 +79,6 @@ const MessageCard = ({ containerStyle, message, onPress }) => {
 
                         />
                     </TouchableOpacity>
-
-
 
                 </View>
                 <View style={{ alignItems: 'center', width: 30, height: 45 }}>
@@ -103,11 +102,14 @@ const MessageCard = ({ containerStyle, message, onPress }) => {
                     }}
                 >
                     <View style={{ height: "90%" }}>
-                        {filterItems.map((item, index) => (
+                        {dummyData.messageItems.map((item, index) => (
                             <TouchableOpacity
                                 key={index}
                                 style={styles.item}
-                                onPress={() => { }}
+                                onPress={() => {
+                                    item.title==="Delete" ? handleDelete() : console.log('0')
+                                }
+                                            }
                             >
 
                                 <Image
@@ -150,10 +152,13 @@ const MessageCard = ({ containerStyle, message, onPress }) => {
                         </View>
                     ))}
                 </View>}
-                {message.cc_recipient.lenght != 0 && <Provider><View style={{ flexDirection: 'row' }}>
+                {message.cc_recipient.length != 0 && <Provider><View style={{ flexDirection: 'row' }}>
                     <Text style={styles.date}>{formattedDate}</Text>
                 </View></Provider>}
             </View>}
+            
+            {attachmentExist && <AttachmentContainer files={message.attachments}/>}
+           
 
             <Card.Content>
                 <Text style={{ color: COLORS.gray }}>{message.body}</Text>
@@ -174,10 +179,12 @@ const styles = StyleSheet.create({
         height: 'auto',
         marginTop: 20,
         paddingBottom: 20,
+        marginBottom: 20,
         borderRadius: SIZES.radius,
         backgroundColor: COLORS.light,
 
     },
+   
     item: {
         flexDirection: "row",
         width: "100%",
@@ -226,5 +233,4 @@ const styles = StyleSheet.create({
 
 });
 
-//make this component available to the app
 export default MessageCard;

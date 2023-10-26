@@ -15,7 +15,7 @@ const TabNavigation = () => {
     const navigation = useNavigation()
     return (
 
-        <Tab.Navigator tabBarOptions={{
+        <Tab.Navigator screenOptions={{
             showLabel: false,
             style: {
                 position: 'absolute',
